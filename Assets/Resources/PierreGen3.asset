@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330a1159aa294c339ea57615939bfcd5, type: 3}
   m_Name: PierreGen3
   m_EditorClassIdentifier: 
+  BoardType: 1
   EncoderRotations:
     Rotation1: 0
     Rotation2: 0
@@ -22,3 +23,4 @@ MonoBehaviour:
     Left: 170
     Right: 10
   Resolution: 4096
+  FlippedStylusButton: 1

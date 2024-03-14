@@ -430,12 +430,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2535179895670110304, guid: 4c73936a4cd08084d940dd5d6e14292b, type: 3}
       propertyPath: TargetPort
-      value: COM7
+      value: COM3
       objectReference: {fileID: 0}
     - target: {fileID: 4806744182230966226, guid: 4c73936a4cd08084d940dd5d6e14292b, type: 3}
       propertyPath: configData
       value: 
-      objectReference: {fileID: 11400000, guid: 7f0d5a49d3156f742a8b3cfa19eec549, type: 2}
+      objectReference: {fileID: 11400000, guid: e68037d4a79f2754db571f421d902220, type: 2}
     - target: {fileID: 5037677612801453961, guid: 4c73936a4cd08084d940dd5d6e14292b, type: 3}
       propertyPath: m_Name
       value: EndEffectorManager
