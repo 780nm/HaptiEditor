@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330a1159aa294c339ea57615939bfcd5, type: 3}
   m_Name: RishavGen3
   m_EditorClassIdentifier: 
+  BoardType: 1
   EncoderRotations:
     Rotation1: 1
     Rotation2: 1
