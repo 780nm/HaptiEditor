@@ -215,6 +215,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!218 &174042848 stripped
+Terrain:
+  m_CorrespondingSourceObject: {fileID: 8207424520712551881, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
+  m_PrefabInstance: {fileID: 1411377316}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1411377316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -224,12 +229,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
+      propertyPath: terrain
+      value: 
+      objectReference: {fileID: 174042848}
+    - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
       propertyPath: texture
       value: 
       objectReference: {fileID: 2800000, guid: 432779e1d46061e43a68a83ef70e8d16, type: 3}
     - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
       propertyPath: brushSize
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
+      propertyPath: treePrefab
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
       propertyPath: brushTexture
@@ -241,7 +254,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
       propertyPath: brushStrength
-      value: 0.28
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
+      propertyPath: objectToPaint
+      value: 
+      objectReference: {fileID: 6454635068711480111, guid: f294d5485f21291409cfd3c292791ce9, type: 3}
+    - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
+      propertyPath: terrainLayerIndex
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
       propertyPath: textures.Array.size
@@ -289,15 +310,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
       propertyPath: brushCurve.m_Curve.Array.data[0].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
-      propertyPath: brushCurve.m_Curve.Array.data[1].inSlope
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
-      propertyPath: brushCurve.m_Curve.Array.data[0].outSlope
+      propertyPath: brushCurve.m_Curve.Array.data[1].inSlope
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
+      propertyPath: brushCurve.m_Curve.Array.data[0].outSlope
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
       propertyPath: brushCurve.m_Curve.Array.data[1].inWeight
@@ -305,7 +326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
       propertyPath: brushCurve.m_Curve.Array.data[1].outSlope
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3795933037494827920, guid: 048e9f13523ed2445813a0be0077a7f1, type: 3}
       propertyPath: brushCurve.m_Curve.Array.data[1].outWeight
