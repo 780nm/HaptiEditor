@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Haply.hAPI;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 using Debug = UnityEngine.Debug;
@@ -35,7 +36,6 @@ public class EndEffectorManager : MonoBehaviour
     private Vector3 initialOffset;
     private object concurrentDataLock;
     private float[] sensors;
-    private bool isButtonFlipped;
     private float[] angles;
     private float[] endEffectorPosition;
     private float[] endEffectorForce;
@@ -114,7 +114,7 @@ public class EndEffectorManager : MonoBehaviour
             if (haplyBoard.DataAvailable()) device.GetSensorData(ref sensors);
             // if(buttonHandler!=null) buttonHandler.DoButton(sensors[0]);
             OnSimulationStep?.Invoke(sensors);
-            device.SetDeviceTorques(endEffectorForce, torques );
+            device.SetDeviceTorques(endEffectorForce, torques);
             device.DeviceWriteTorques();
         }
     }
@@ -137,7 +137,12 @@ public class EndEffectorManager : MonoBehaviour
     /// </summary>
     /// <returns>boolean value of button flipped status</returns>
     public bool GetButtonState() => device.CheckButtonFlipped();
-    
+
+    public float[] GetForces()
+    {
+        return endEffectorForce;
+    }
+
     /// <summary>
     /// Set End Effector Forces for force feedback
     /// </summary>
