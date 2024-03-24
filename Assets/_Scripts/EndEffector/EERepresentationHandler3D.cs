@@ -48,6 +48,7 @@ public class EERepresentationHandler3D : EERepresentationHandler
     {
         Vector3 direction = EndEffectorActual.position - transform.position;
         Vector3 velocity = direction / Time.fixedDeltaTime;
+        velocity.SetY(0);
         rb.velocity = velocity;
     }
 
