@@ -115,9 +115,6 @@ public class TerrainScript : MonoBehaviour
                 // Get the terrain height at the given coordinates
                 float terrainHeight = terrainData.GetHeight((int)terrainX, (int)terrainZ);
 
-                // Set the position for placing the tree
-                //Vector3 treePosition = new Vector3(terrainLocalPos.x, terrainHeight, terrainLocalPos.z);
-
                 // Create a new TreeInstance
                 TreeInstance newTree = new TreeInstance();
                 newTree.position = new Vector3(((float)terrainX * terrainData.heightmapScale.x + Random.Range(-brushRadius, brushRadius)) / terrainData.size.x,
@@ -129,8 +126,6 @@ public class TerrainScript : MonoBehaviour
                 float randomScale = Random.Range(scaleLowerBound, scaleLowerBound+scaleRange);
                 newTree.widthScale = randomScale;
                 newTree.heightScale = randomScale;
-                newTree.color = Color.black;
-                newTree.lightmapColor = Color.black;
 
                 // Add the TreeInstance to the terrain data
                 terrain.AddTreeInstance(newTree);
