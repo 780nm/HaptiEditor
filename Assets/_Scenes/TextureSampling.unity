@@ -319,7 +319,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533939065}
-  m_Material: {fileID: 13400000, guid: 158ec941abfd3304e9b1971d3e9cc0f9, type: 2}
+  m_Material: {fileID: 13400000, guid: c1622edb883467843afc4212e4cc2401, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1367,8 +1367,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b07efa13f69b04bbd9d2410b011082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intensity: 0.7
+  intensity: 4
   endEffectorRepresentation: {fileID: 439973770}
+  movementThreshold: 0.001
 --- !u!1 &2099085822
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,12 +1628,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5594588929611744768, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: TargetPort
-      value: COM5
+      value: COM7
       objectReference: {fileID: 0}
     - target: {fileID: 6039017206879678514, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: configData
       value: 
-      objectReference: {fileID: 11400000, guid: dc657b3800037834283381d0634a285f, type: 2}
+      objectReference: {fileID: 11400000, guid: 7f0d5a49d3156f742a8b3cfa19eec549, type: 2}
     - target: {fileID: 6402237009589695926, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: objectContainer
       value: 
@@ -1659,6 +1660,14 @@ PrefabInstance:
       objectReference: {fileID: 861335956}
     - target: {fileID: 8372122355097027994, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8372122355097027994, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
+      propertyPath: ButtonPressed.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8372122355097027994, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8573649219701247921, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}

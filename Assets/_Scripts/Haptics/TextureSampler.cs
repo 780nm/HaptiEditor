@@ -12,16 +12,17 @@ public class TextureSampler : MonoBehaviour
     public float intensity;
 
     [SerializeField] private GameObject endEffectorRepresentation;
-
+    [Range(0.0001f, 0.001f), SerializeField] private float movementThreshold;
+    
     #endregion
 
     #region Member Vars
 
     private EndEffectorManager endEffectorManager;
-    private GameObject hitObject;
     private Texture hitTexture;
     RaycastHit hit;
     private Vector2 forces;
+    private Vector3 previousPosition = Vector3.zero;
 
     #endregion
 
@@ -49,32 +50,34 @@ public class TextureSampler : MonoBehaviour
 
     private void LateUpdate()
     {
-        var ray = endEffectorRepresentation.transform.TransformDirection(Vector3.down);
-        Physics.Raycast(endEffectorRepresentation.transform.position, ray, out hit, 1f);
-        Debug.DrawLine(endEffectorRepresentation.transform.position, hit.point, Color.red);
-        hitObject = hit.transform.gameObject;
-        MeshRenderer hitRenderer = hitObject.GetComponent<MeshRenderer>();
-        Texture2D tex = hitRenderer.material.mainTexture as Texture2D;
+        forces = Vector2.zero;
+        Transform eeTransform = endEffectorRepresentation.transform;
+        if ((eeTransform.position - previousPosition).magnitude < movementThreshold)
+        {
+            previousPosition = eeTransform.position;
+            return;
+        }
+        Vector3 ray = eeTransform.TransformDirection(Vector3.down);
+        bool isSurfacePresent = Physics.Raycast(eeTransform.position, ray, out hit, 1f);
+        if (!isSurfacePresent) return;
+        MeshRenderer hitRenderer = hit.transform.gameObject.GetComponent<MeshRenderer>();
+        if (hitRenderer.material.mainTexture is not Texture2D texture) return;
         Vector2 pixelUV = hit.textureCoord;
-        pixelUV.x *= tex.width;
-        pixelUV.y *= tex.height;
-
-        print(hit.textureCoord);
-        for(int i = -1; i <=1; i++)
+        pixelUV.x *= texture.width;
+        pixelUV.y *= texture.height;
+        for (int i = -1; i <= 1; i++)
         {
             for (int j = -1; j <= 1; j++)
             {
                 Vector2 direction = new Vector2(i, j);
                 direction.Normalize();
-                float mag = tex.GetPixel((int)pixelUV.x + i, (int)pixelUV.y + j).grayscale;
+                float mag = texture.GetPixel((int)pixelUV.x + i, (int)pixelUV.y + j).grayscale;
                 forces.x += direction.x * (0.5f - mag);
                 forces.y += direction.y * (0.5f - mag);
             }
         }
-
         forces *= intensity;
-        print(forces);
-
+        previousPosition = eeTransform.position;
     }
 
     #endregion

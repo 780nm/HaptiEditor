@@ -2,10 +2,8 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Haply.hAPI;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
-using Debug = UnityEngine.Debug;
 
 public class EndEffectorManager : MonoBehaviour
 {
@@ -30,7 +28,6 @@ public class EndEffectorManager : MonoBehaviour
     #endregion
 
     #region Member Vars
-
     
     private Task simulationLoopTask;
     private Vector3 initialOffset;
@@ -59,7 +56,6 @@ public class EndEffectorManager : MonoBehaviour
 
     private void Start()
     {
-        Application.targetFrameRate = 60;
         device.LoadConfig();
         haplyBoard.Initialize();
         device.DeviceSetParameters();
