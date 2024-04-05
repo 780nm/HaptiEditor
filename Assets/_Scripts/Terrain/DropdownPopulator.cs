@@ -15,7 +15,7 @@ public class DropdownPopulator : MonoBehaviour
 
     public void SetType(int val)
     {
-        brushType = val == 0 ? BrushType.Objects : BrushType.Textures;
+        brushType = val == 0 ? BrushType.Texture : BrushType.Objects;
         PopulateFields();
     }
 
@@ -25,6 +25,16 @@ public class DropdownPopulator : MonoBehaviour
         string[] enumStrings = Array.Empty<string>();
         switch (brushType)
         {
+            case BrushType.Texture:
+                {
+                    TextureTypes[] enumNames = (TextureTypes[])Enum.GetValues(typeof(TextureTypes));
+                    enumStrings = new string[enumNames.Length];
+                    for (int i = 0; i < enumNames.Length; i++)
+                    {
+                        enumStrings[i] = enumNames[i].ToString();
+                    }
+                    break;
+                }
             case BrushType.Objects:
             {
                 ObjectTypes[] enumNames = (ObjectTypes[])Enum.GetValues(typeof(ObjectTypes));
@@ -35,24 +45,10 @@ public class DropdownPopulator : MonoBehaviour
                 }
                 break;
             }
-            case BrushType.Textures:
-            {
-                TextureTypes[] enumNames = (TextureTypes[])Enum.GetValues(typeof(TextureTypes));
-                enumStrings = new string[enumNames.Length];
-                for (int i = 0; i < enumNames.Length; i++)
-                {
-                    enumStrings[i] = enumNames[i].ToString();
-                }
+            case BrushType.ObjectEraser:
                 break;
-            }
         }
         dropdown.AddOptions(new List<string>(enumStrings));
     }
 
-}
-
-public enum BrushType
-{
-    Objects = 0,
-    Textures = 1
 }
