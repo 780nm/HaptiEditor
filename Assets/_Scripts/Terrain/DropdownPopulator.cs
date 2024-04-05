@@ -13,6 +13,12 @@ public class DropdownPopulator : MonoBehaviour
         PopulateFields();
     }
 
+    public void SetType(int val)
+    {
+        brushType = val == 0 ? BrushType.Objects : BrushType.Textures;
+        PopulateFields();
+    }
+
     private void PopulateFields()
     {
         dropdown.ClearOptions();
