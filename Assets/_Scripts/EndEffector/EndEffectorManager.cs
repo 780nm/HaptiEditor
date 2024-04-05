@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Haply.hAPI;
 using UnityEngine;
@@ -30,6 +31,7 @@ public class EndEffectorManager : MonoBehaviour
     #region Member Vars
     
     private Task simulationLoopTask;
+    private CancellationTokenSource cancellationTokenSource;
     private Vector3 initialOffset;
     private object concurrentDataLock;
     private float[] sensors;
@@ -56,7 +58,20 @@ public class EndEffectorManager : MonoBehaviour
 
     private void Start()
     {
-        device.LoadConfig();
+        LoadBoard();
+    }
+
+    public void ReloadBoard(DeviceConfig customConfig, string targetPort)
+    {
+        haplyBoard.DestroyBoard();
+        CancelSimulation();
+        SetForces(0f, 0f);
+        LoadBoard(customConfig, targetPort);
+    }
+
+    private void LoadBoard(DeviceConfig customConfig = null, string targetPort = null)
+    {
+        device.LoadConfig(customConfig);
         haplyBoard.Initialize();
         device.DeviceSetParameters();
         angles = new float[2];
@@ -85,25 +100,36 @@ public class EndEffectorManager : MonoBehaviour
 
     private void SimulationLoop()
     {
-        TimeSpan length = TimeSpan.FromTicks( TimeSpan.TicksPerSecond / 1000 );
+        TimeSpan length = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 1000);
         Stopwatch sw = new();
-        while (true)
+        cancellationTokenSource = new CancellationTokenSource();
+
+        while (!cancellationTokenSource.Token.IsCancellationRequested)
         {
             sw.Start();
-            Task simulationStepTask = new( SimulationStep );
+            Task simulationStepTask = new(() => SimulationStep(cancellationTokenSource.Token));
             simulationStepTask.Start();
-            simulationStepTask.Wait();
-            while ( sw.Elapsed < length )
+            simulationStepTask.Wait(cancellationTokenSource.Token);
+            while (sw.Elapsed < length)
             {
-                //limits speed of simulation
+                // limits speed of simulation
             }
             sw.Stop();
             sw.Reset();
         }
     }
     
-    private void SimulationStep()
+    private void CancelSimulation()
     {
+        cancellationTokenSource?.Cancel();
+    }
+    
+    private void SimulationStep(CancellationToken cancellationToken)
+    {
+        if (cancellationToken.IsCancellationRequested)
+        {
+            return;
+        }
         lock (concurrentDataLock)
         {
             GetPosition();

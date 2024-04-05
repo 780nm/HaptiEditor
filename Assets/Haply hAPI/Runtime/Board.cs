@@ -24,6 +24,12 @@ namespace Haply.hAPI
                 ClosePort();
             }
         }
+
+        public void DestroyBoard()
+        {
+            ClosePort();
+            hasBeenInitialized = false;
+        }
         
         /// <summary>
         /// Initializes the communication with a serial port, configuring its settings and attempting to open it.
@@ -32,7 +38,7 @@ namespace Haply.hAPI
         /// This method checks if the board has already been initialized before proceeding.
         /// </remarks>
         /// <exception cref="Exception">Thrown when an error occurs during initialization.</exception>
-        public void Initialize()
+        public void Initialize(string customPort = null)
         {
             if (hasBeenInitialized)
             {
@@ -41,8 +47,8 @@ namespace Haply.hAPI
             }
             try
             {
+                TargetPort ??= customPort;
                 port = new SerialPort(TargetPort, baudRate);
-
                 port.ReadTimeout = serialTimeout;
                 port.WriteTimeout = serialTimeout;
                 port.DtrEnable = true;
