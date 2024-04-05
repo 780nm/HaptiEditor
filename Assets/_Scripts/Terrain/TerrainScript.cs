@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TerrainScript : MonoBehaviour
 {
-
     [SerializeField] private Terrain terrain;
     [SerializeField] private int terrainLayerIndex; // 0 for dirt, 1 for grass
     [SerializeField] private float brushSize = 5f;
@@ -89,4 +88,17 @@ public class TerrainScript : MonoBehaviour
             }
         }
     }
+}
+
+public enum ObjectTypes
+{
+    Trees = 0,
+    Rocks = 1
+}
+
+public enum TextureTypes
+{
+    Grass = 0,
+    Sand = 1,
+    Gravel = 2
 }
