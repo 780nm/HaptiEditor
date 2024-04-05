@@ -229,13 +229,14 @@ namespace Haply.hAPI
 		/// <summary>
 		/// Loads device specific data from a scriptable object
 		/// </summary>
-		public void LoadConfig()
+		public void LoadConfig(DeviceConfig customConfig = null)
 		{
-			mechanism.SetBoardType(configData.BoardType);
-			ActuatorRotations actuator = configData.ActuatorRotations;
-			EncoderRotations encoder = configData.EncoderRotations;
-			Offset offset = configData.Offset;
-			int resolution = configData.Resolution;
+			DeviceConfig targetConfig = customConfig ?? configData;
+			mechanism.SetBoardType(targetConfig.BoardType);
+			ActuatorRotations actuator = targetConfig.ActuatorRotations;
+			EncoderRotations encoder = targetConfig.EncoderRotations;
+			Offset offset = targetConfig.Offset;
+			int resolution = targetConfig.Resolution;
             
 			AddActuator(1, (int)actuator.Rotation1, 2);
 			AddActuator(2, (int)actuator.Rotation2, 1);
