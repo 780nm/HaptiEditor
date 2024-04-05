@@ -16,16 +16,26 @@ public class TerrainScript : MonoBehaviour
 
     [SerializeField] private int terrainLayerIndex; // 0 for dirt, 1 for grass, 2 sand...
     [SerializeField] private float brushStrength = 1f;
-    
+    [SerializeField] private float texturePaintingTimeInterval = 0.05f;
+
     [SerializeField] private int treePrototypeIndex;
+    [SerializeField] private float objectPaintingTimeInterval = 0.5f;
     [SerializeField] private int numberOfTreePlaced = 1;
+
+    [SerializeField] private Transform EndEffectorTransform;
+    
+
+    [SerializeField] private BrushType brushType;
 
     private int terrainIndex;
 
     private TerrainCollider terrainCollider;
     private TerrainData terrainData;
 
+    private IEnumerator objectPainterCoroutine;
+    private IEnumerator texturePainterCoroutine;
 
+    #region Unity Functions
     void Start()
     {
         if (terrain == null)
@@ -42,38 +52,37 @@ public class TerrainScript : MonoBehaviour
         terrainCollider = terrain.GetComponent<TerrainCollider>();
 
         InitDestructibleTrees();
+
+        objectPainterCoroutine = PaintingObject();
+        texturePainterCoroutine = PaintingTexture();
     }
 
-    void InitDestructibleTrees()
+    private void OnApplicationQuit()
     {
-        // create capsule collider for every terrain tree
-        for (terrainIndex = 0; terrainIndex < terrain.terrainData.treeInstances.Length; terrainIndex++)
+        List<TreeInstance> trees = new List<TreeInstance>(terrain.terrainData.treeInstances);
+        List<TreeInstance> trees_cleaned = new List<TreeInstance>();
+        TreeInstance empty_tree = new TreeInstance();
+        for (int i = 0; i < trees.Count; i++)
         {
-            TreeInstance treeInstance = terrain.terrainData.treeInstances[terrainIndex];
+            if (!trees[i].Equals(empty_tree))
+            {
+                trees_cleaned.Add(trees[i]);
+            }
+        }
+        terrain.terrainData.SetTreeInstances(trees_cleaned.ToArray(), true);
+    }
+    #endregion
 
-            CreateCapsuleCollider(treeInstance);
+    #region Texture Painting
+    IEnumerator PaintingTexture()
+    {
+        while (true)
+        {
+            PaintTexture();
+            yield return new WaitForSeconds(texturePaintingTimeInterval);
         }
     }
-
-    void CreateCapsuleCollider(TreeInstance treeInstance)
-    {
-        GameObject capsule = new GameObject("EmptyGameObject");
-        // Add a capsule collider to the empty GameObject
-        CapsuleCollider capsuleCollider = capsule.AddComponent<CapsuleCollider>();
-        capsuleCollider.center = new Vector3(0, 5, 0);
-        capsuleCollider.height = 10;
-        capsuleCollider.radius = 0.5f; // Radius of the capsule
-
-
-        DestroyableTree tree = capsule.AddComponent<DestroyableTree>();
-        tree.terrainIndex = terrainIndex;
-        tree.terrain = terrain;
-        tree.terrainCollider = terrainCollider;
-        capsule.transform.position = Vector3.Scale(treeInstance.position, terrain.terrainData.size) + terrain.transform.position;
-        capsule.transform.parent = terrain.transform;
-    }
-
-    void PaintTexture(Vector3 worldPosition)
+    void PaintTexture()
     {
         if (terrain.terrainData.alphamapLayers < terrainLayerIndex)
         {
@@ -81,7 +90,7 @@ public class TerrainScript : MonoBehaviour
             return;
         }
         // Convert world position to terrain local position
-        Vector3 terrainLocalPos = worldPosition - terrain.transform.position;
+        Vector3 terrainLocalPos = EndEffectorTransform.position - terrain.transform.position;
         Vector2 normalizedPos = new Vector2(terrainLocalPos.x / terrainData.size.x, terrainLocalPos.z / terrainData.size.z);
 
         // Get the current alphamap
@@ -119,7 +128,18 @@ public class TerrainScript : MonoBehaviour
         terrainData.SetAlphamaps(startX, startY, splatmapData);
     }
 
-    void PaintTree(Vector3 worldPosition)
+    #endregion
+
+    #region Object Painting
+    IEnumerator PaintingObject()
+    {
+        while (true)
+        {
+            PaintObject();
+            yield return new WaitForSeconds(objectPaintingTimeInterval);
+        }
+    }
+    void PaintObject()
     {
         // Define the radius within which trees will be randomly placed
         float placementRadius = 0f; // Adjust this value as needed
@@ -129,7 +149,7 @@ public class TerrainScript : MonoBehaviour
             Vector2 randomOffset = Random.insideUnitCircle * placementRadius;
 
             // Calculate the new position by adding the random offset to the clicked position
-            Vector3 newPosition = worldPosition + new Vector3(randomOffset.x, 0f, randomOffset.y);
+            Vector3 newPosition = EndEffectorTransform.position + new Vector3(randomOffset.x, 0f, randomOffset.y);
 
             // Convert world position to terrain local position
             Vector3 terrainLocalPos = newPosition - terrain.transform.position;
@@ -165,54 +185,89 @@ public class TerrainScript : MonoBehaviour
                 terrainIndex++;
             }
         }
-        RefreshTerrainCollider();
     }
 
+    void InitDestructibleTrees()
+    {
+        // create capsule collider for every terrain tree
+        for (terrainIndex = 0; terrainIndex < terrain.terrainData.treeInstances.Length; terrainIndex++)
+        {
+            TreeInstance treeInstance = terrain.terrainData.treeInstances[terrainIndex];
+
+            CreateCapsuleCollider(treeInstance);
+        }
+    }
+
+    void CreateCapsuleCollider(TreeInstance treeInstance)
+    {
+        GameObject capsule = new GameObject("EmptyGameObject");
+        // Add a capsule collider to the empty GameObject
+        CapsuleCollider capsuleCollider = capsule.AddComponent<CapsuleCollider>();
+        capsuleCollider.center = new Vector3(0, 5, 0);
+        capsuleCollider.height = 10;
+        capsuleCollider.radius = 0.5f; // Radius of the capsule
+
+
+        DestroyableTree tree = capsule.AddComponent<DestroyableTree>();
+        tree.terrainIndex = terrainIndex;
+        tree.terrain = terrain;
+        tree.terrainCollider = terrainCollider;
+        capsule.transform.position = Vector3.Scale(treeInstance.position, terrain.terrainData.size) + terrain.transform.position;
+        capsule.transform.parent = terrain.transform;
+    }
+
+    #endregion
+
+    #region Stylus Actions And Coroutines
+    public void StartPainting()
+    {
+        switch (brushType)
+        {
+            case BrushType.Texture:
+                StartCoroutine(texturePainterCoroutine);
+                break;
+            case BrushType.Objects:
+                StartCoroutine(objectPainterCoroutine);
+                break;
+            case BrushType.ObjectEraser:
+                DestroyableTree.isInDeletingMode = true;
+                break;
+            default:
+                Debug.LogError("TerrainScript Error: BrushType not supported/implemented");
+                break;
+        }
+    }
+
+    public void StopPainting()
+    {
+        switch (brushType)
+        {
+            case BrushType.Texture:
+                StopCoroutine(texturePainterCoroutine);
+                break;
+            case BrushType.Objects:
+                StopCoroutine(objectPainterCoroutine);
+                RefreshTerrainCollider();
+                break;
+            case BrushType.ObjectEraser:
+                DestroyableTree.isInDeletingMode = false;
+                break;
+            default:
+                Debug.LogError("TerrainScript Error: BrushType not supported/implemented");
+                break;
+        }
+    }
+
+    #endregion
+
+    #region Utility 
     private void RefreshTerrainCollider()
     {
         terrainCollider.enabled = false;
         terrainCollider.enabled = true;
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButton(0))
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                PaintTexture(hit.point);
-            }
-        }
-        if (Input.GetMouseButton(1))
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                PaintTree(hit.point);
-            }
-        }
-        DestroyableTree.isInDeletingMode = Input.GetMouseButton(2);
-    }
-
-    private void OnApplicationQuit()
-    {
-        List<TreeInstance> trees = new List<TreeInstance>(terrain.terrainData.treeInstances);
-        List<TreeInstance> trees_cleaned = new List<TreeInstance>();
-        TreeInstance empty_tree = new TreeInstance();
-        for (int i = 0; i < trees.Count; i++)
-        {
-            if (!trees[i].Equals(empty_tree))
-            {
-                trees_cleaned.Add(trees[i]);
-            }
-        }
-        terrain.terrainData.SetTreeInstances(trees_cleaned.ToArray(), true);
-    }
+    #endregion
 }
 
 
@@ -250,4 +305,12 @@ public class DestroyableTree : MonoBehaviour
 
         Destroy(gameObject);
     }
+}
+
+
+public enum BrushType
+{
+    Texture = 0,
+    Objects = 1,
+    ObjectEraser = 2
 }
