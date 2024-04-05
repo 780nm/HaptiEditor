@@ -1535,14 +1535,14 @@ MonoBehaviour:
   objectPaintingTimeInterval: 0.5
   numberOfTreePlaced: 1
   EndEffectorTransform: {fileID: 1314477759}
-  brushType: 0
+  brushType: 2
 --- !u!114 &783420770 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6402237009589695926, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
   m_PrefabInstance: {fileID: 2083529660}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783420766}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2426ce27b3bb454d8e818c8e31ff256c, type: 3}
   m_Name: 
@@ -3522,7 +3522,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: e68037d4a79f2754db571f421d902220, type: 2}
     - target: {fileID: 6402237009589695926, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8199140615373819551, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: m_TagString
@@ -3530,11 +3530,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8372122355097027994, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: ButtonPressed.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8372122355097027994, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8372122355097027994, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: ButtonPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode

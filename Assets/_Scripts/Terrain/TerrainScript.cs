@@ -23,7 +23,7 @@ public class TerrainScript : MonoBehaviour
     [SerializeField] private int numberOfTreePlaced = 1;
 
     [SerializeField] private Transform EndEffectorTransform;
-    
+
 
     [SerializeField] private BrushType brushType;
 
