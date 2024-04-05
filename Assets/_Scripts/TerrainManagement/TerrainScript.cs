@@ -20,7 +20,10 @@ public class TerrainScript : MonoBehaviour
     [SerializeField] private int treePrototypeIndex;
     [SerializeField] private int numberOfTreePlaced = 1;
 
+    private int terrainIndex;
+
     private TerrainCollider terrainCollider;
+    private TerrainData terrainData;
 
 
     void Start()
@@ -35,7 +38,39 @@ public class TerrainScript : MonoBehaviour
             Debug.LogError("No Terrain Layer set!");
             return;
         }
+        terrainData = terrain.terrainData;
         terrainCollider = terrain.GetComponent<TerrainCollider>();
+
+        InitDestructibleTrees();
+    }
+
+    void InitDestructibleTrees()
+    {
+        // create capsule collider for every terrain tree
+        for (terrainIndex = 0; terrainIndex < terrain.terrainData.treeInstances.Length; terrainIndex++)
+        {
+            TreeInstance treeInstance = terrain.terrainData.treeInstances[terrainIndex];
+
+            CreateCapsuleCollider(treeInstance);
+        }
+    }
+
+    void CreateCapsuleCollider(TreeInstance treeInstance)
+    {
+        GameObject capsule = new GameObject("EmptyGameObject");
+        // Add a capsule collider to the empty GameObject
+        CapsuleCollider capsuleCollider = capsule.AddComponent<CapsuleCollider>();
+        capsuleCollider.center = new Vector3(0, 5, 0);
+        capsuleCollider.height = 10;
+        capsuleCollider.radius = 0.5f; // Radius of the capsule
+
+
+        DestroyableTree tree = capsule.AddComponent<DestroyableTree>();
+        tree.terrainIndex = terrainIndex;
+        tree.terrain = terrain;
+        tree.terrainCollider = terrainCollider;
+        capsule.transform.position = Vector3.Scale(treeInstance.position, terrain.terrainData.size) + terrain.transform.position;
+        capsule.transform.parent = terrain.transform;
     }
 
     void PaintTexture(Vector3 worldPosition)
@@ -45,9 +80,6 @@ public class TerrainScript : MonoBehaviour
             Debug.LogError("The terrain layer index is higher than the number of Terrain Texture Layers!");
             return;
         }
-
-        TerrainData terrainData = terrain.terrainData;
-
         // Convert world position to terrain local position
         Vector3 terrainLocalPos = worldPosition - terrain.transform.position;
         Vector2 normalizedPos = new Vector2(terrainLocalPos.x / terrainData.size.x, terrainLocalPos.z / terrainData.size.z);
@@ -89,8 +121,6 @@ public class TerrainScript : MonoBehaviour
 
     void PaintTree(Vector3 worldPosition)
     {
-
-        TerrainData terrainData = terrain.terrainData;
         // Define the radius within which trees will be randomly placed
         float placementRadius = 0f; // Adjust this value as needed
 
@@ -129,12 +159,16 @@ public class TerrainScript : MonoBehaviour
 
                 // Add the TreeInstance to the terrain data
                 terrain.AddTreeInstance(newTree);
+
+                CreateCapsuleCollider(newTree);
+                
+                terrainIndex++;
             }
         }
-        refreshTerrainCollider();
+        RefreshTerrainCollider();
     }
 
-    private void refreshTerrainCollider()
+    private void RefreshTerrainCollider()
     {
         terrainCollider.enabled = false;
         terrainCollider.enabled = true;
@@ -162,5 +196,58 @@ public class TerrainScript : MonoBehaviour
                 PaintTree(hit.point);
             }
         }
+        DestroyableTree.isInDeletingMode = Input.GetMouseButton(2);
+    }
+
+    private void OnApplicationQuit()
+    {
+        List<TreeInstance> trees = new List<TreeInstance>(terrain.terrainData.treeInstances);
+        List<TreeInstance> trees_cleaned = new List<TreeInstance>();
+        TreeInstance empty_tree = new TreeInstance();
+        for (int i = 0; i < trees.Count; i++)
+        {
+            if (!trees[i].Equals(empty_tree))
+            {
+                trees_cleaned.Add(trees[i]);
+            }
+        }
+        terrain.terrainData.SetTreeInstances(trees_cleaned.ToArray(), true);
+    }
+}
+
+
+public class DestroyableTree : MonoBehaviour
+{
+    public int terrainIndex;
+    public bool isDestroyed = false;
+    public Terrain terrain;
+    public TerrainCollider terrainCollider;
+
+    public static bool isInDeletingMode = false;
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+        if (collision.body.tag.Equals("EndEffector") && isInDeletingMode) {
+            Delete();
+            RefreshTerrainCollider();
+        }
+    }
+
+    private void RefreshTerrainCollider()
+    {
+        terrainCollider.enabled = false;
+        terrainCollider.enabled = true;
+    }
+
+    public void Delete()
+    {
+
+        List<TreeInstance> trees = new List<TreeInstance>(terrain.terrainData.treeInstances);
+        trees[terrainIndex] = new TreeInstance();
+        isDestroyed = true;
+        terrain.terrainData.treeInstances = trees.ToArray();
+
+        Destroy(gameObject);
     }
 }

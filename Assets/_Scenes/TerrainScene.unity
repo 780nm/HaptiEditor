@@ -628,6 +628,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8199140615373819551, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
+      propertyPath: m_TagString
+      value: EndEffector
+      objectReference: {fileID: 0}
     - target: {fileID: 8372122355097027994, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: ButtonPressed.m_PersistentCalls.m_Calls.Array.size
       value: 0
