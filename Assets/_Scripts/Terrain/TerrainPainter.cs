@@ -6,7 +6,7 @@ using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TerrainScript : MonoBehaviour
+public class TerrainPainter : MonoBehaviour
 {
 
     [SerializeField] private Terrain terrain;

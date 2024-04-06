@@ -7,7 +7,7 @@ public class DropdownPopulator : MonoBehaviour
 {
     [SerializeField] private BrushType brushType;
     [SerializeField] private TMP_Dropdown dropdown;
-    [SerializeField] private TerrainScript terrainScript;
+    [SerializeField] private TerrainPainter terrainPainter;
 
     private void OnValidate()
     {
@@ -57,7 +57,7 @@ public class DropdownPopulator : MonoBehaviour
                 break;
         }
         dropdown.AddOptions(new List<string>(enumStrings));
-        dropdown.SetValueWithoutNotify(terrainScript.GetBrushSpecifics(brushType));
+        dropdown.SetValueWithoutNotify(terrainPainter.GetBrushSpecifics(brushType));
     }
 
 }

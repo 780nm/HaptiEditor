@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brushType: 0
   dropdown: {fileID: 33857356}
-  terrainScript: {fileID: 783420767}
+  terrainPainter: {fileID: 783420767}
 --- !u!114 &33857356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,19 +238,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 783420767}
-        m_TargetAssemblyTypeName: TerrainScript, Assembly-CSharp
-        m_MethodName: SetBrushDetail
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 33857356}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Dropdown, Unity.TextMeshPro
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &33857357
 MonoBehaviour:
@@ -1432,25 +1420,14 @@ MonoBehaviour:
     m_RotationOrder: 4
   scaleLowerBound: 0.25
   scaleRange: 0.11
-  terrainLayerIndex: 1
+  terrainLayerIndex: 0
   brushStrength: 1
   texturePaintingTimeInterval: 0.05
   treePrototypeIndex: 0
   objectPaintingTimeInterval: 0.5
   numberOfTreePlaced: 1
   EndEffectorTransform: {fileID: 1314477759}
-  brushType: 2
---- !u!114 &783420770 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6402237009589695926, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
-  m_PrefabInstance: {fileID: 2083529660}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 783420766}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2426ce27b3bb454d8e818c8e31ff256c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  brushType: 0
 --- !u!114 &783420771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2862,6 +2839,7 @@ GameObject:
   - component: {fileID: 1695849681}
   - component: {fileID: 1695849680}
   - component: {fileID: 1695849679}
+  - component: {fileID: 1695849682}
   m_Layer: 5
   m_Name: BrushType
   m_TagString: Untagged
@@ -3013,6 +2991,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1695849677}
   m_CullTransparentMesh: 1
+--- !u!114 &1695849682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695849677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef441bc8ab5d5f4cac0c8b7a50e4d8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainPainter: {fileID: 783420767}
+  typeDropdown: {fileID: 1695849679}
 --- !u!1 &1707991656
 GameObject:
   m_ObjectHideFlags: 0
@@ -3631,7 +3623,7 @@ PrefabInstance:
     - target: {fileID: 8372122355097027994, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: ButtonPressed.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 783420770}
+      objectReference: {fileID: 0}
     - target: {fileID: 8372122355097027994, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3639,7 +3631,7 @@ PrefabInstance:
     - target: {fileID: 8372122355097027994, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 783420770}
+      objectReference: {fileID: 0}
     - target: {fileID: 8372122355097027994, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: ButtonPressed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3700,12 +3692,13 @@ PrefabInstance:
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6402237009589695926, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4754079058007504466, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
-      insertIndex: 3
+      insertIndex: 2
       addedObject: {fileID: 783420767}
     - targetCorrespondingSourceObject: {fileID: 4754079058007504466, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       insertIndex: -1
