@@ -179,6 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brushType: 0
   dropdown: {fileID: 33857356}
+  terrainScript: {fileID: 783420767}
 --- !u!114 &33857356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,15 +230,27 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
+    - m_Text: Dirt
+      m_Image: {fileID: 0}
     - m_Text: Grass
       m_Image: {fileID: 0}
     - m_Text: Sand
       m_Image: {fileID: 0}
-    - m_Text: Gravel
-      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 783420767}
+        m_TargetAssemblyTypeName: TerrainScript, Assembly-CSharp
+        m_MethodName: SetBrushDetail
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 33857356}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Dropdown, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &33857357
 MonoBehaviour:
@@ -2090,7 +2103,7 @@ GameObject:
   - component: {fileID: 1263137909}
   - component: {fileID: 1263137908}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: BrushSelectorUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2949,6 +2962,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 783420767}
+        m_TargetAssemblyTypeName: TerrainScript, Assembly-CSharp
+        m_MethodName: SetBrushType
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1695849679}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Dropdown, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1695849680
 MonoBehaviour:
@@ -3355,7 +3380,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Grass
+  m_text: Dirt
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

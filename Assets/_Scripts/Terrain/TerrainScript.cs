@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class TerrainScript : MonoBehaviour
 {
@@ -146,7 +148,7 @@ public class TerrainScript : MonoBehaviour
 
         for (int i = 0;i< numberOfTreePlaced; i++) { 
             // Calculate a random offset within the placement radius
-            Vector2 randomOffset = Random.insideUnitCircle * placementRadius;
+            Vector2 randomOffset = UnityEngine.Random.insideUnitCircle * placementRadius;
 
             // Calculate the new position by adding the random offset to the clicked position
             Vector3 newPosition = EndEffectorTransform.position + new Vector3(randomOffset.x, 0f, randomOffset.y);
@@ -167,13 +169,13 @@ public class TerrainScript : MonoBehaviour
 
                 // Create a new TreeInstance
                 TreeInstance newTree = new TreeInstance();
-                newTree.position = new Vector3(((float)terrainX * terrainData.heightmapScale.x + Random.Range(-brushRadius, brushRadius)) / terrainData.size.x,
+                newTree.position = new Vector3(((float)terrainX * terrainData.heightmapScale.x + UnityEngine.Random.Range(-brushRadius, brushRadius)) / terrainData.size.x,
                                                 terrainHeight / terrainData.size.y, 
-                                                ((float)terrainZ * terrainData.heightmapScale.z + Random.Range(-brushRadius, brushRadius)) / terrainData.size.z
+                                                ((float)terrainZ * terrainData.heightmapScale.z + UnityEngine.Random.Range(-brushRadius, brushRadius)) / terrainData.size.z
                                               );
-                newTree.rotation = Random.Range(0f, Mathf.PI*2);
+                newTree.rotation = UnityEngine.Random.Range(0f, Mathf.PI*2);
                 newTree.prototypeIndex = (int)treePrototypeIndex;
-                float randomScale = Random.Range(scaleLowerBound, scaleLowerBound+scaleRange);
+                float randomScale = UnityEngine.Random.Range(scaleLowerBound, scaleLowerBound+scaleRange);
                 newTree.widthScale = randomScale;
                 newTree.heightScale = randomScale;
 
@@ -260,6 +262,51 @@ public class TerrainScript : MonoBehaviour
 
     #endregion
 
+    #region Dropdown Functions
+
+    public void SetBrushType(TMP_Dropdown dropDown)
+    {
+        brushType = (BrushType)dropDown.value;
+    }
+
+    public void SetBrushSpecifics(TMP_Dropdown dropDown)
+    {
+        Debug.Log("SET");
+        switch (brushType)
+        {
+            case (BrushType.Texture):
+                terrainLayerIndex = (TextureTypes)dropDown.value;
+                break;
+            case (BrushType.Objects):
+                treePrototypeIndex = (ObjectTypes)dropDown.value;
+                break;
+            default :
+                Debug.LogError("TerrainScript Error: This brushtype doesn't have anything to update");
+                break;
+        }
+    }
+
+    public int GetBrushType()
+    {
+        return (int)brushType;
+    }
+
+    public int GetBrushSpecifics(BrushType brush)
+    {
+        switch (brush)
+        {
+            case (BrushType.Texture):
+                return (int)terrainLayerIndex;
+            case (BrushType.Objects):
+                return (int)treePrototypeIndex;
+            default:
+                return 0;
+        }
+    }
+
+
+    #endregion
+
     #region Utility 
     private void RefreshTerrainCollider()
     {
@@ -310,14 +357,15 @@ public class DestroyableTree : MonoBehaviour
 public enum ObjectTypes
 {
     Trees = 0,
-    Rocks = 1
+    DeadTrees = 1,
+    Rocks = 2
 }
 
 public enum TextureTypes
 {
-    Grass = 0,
-    Sand = 1,
-    Gravel = 2
+    Dirt = 0,
+    Grass = 1,
+    Sand = 2
 }
 
 
