@@ -6,7 +6,8 @@ namespace Haply.hAPI
     public class Device : MonoBehaviour
     {
 	    [SerializeField] private DeviceConfig configData;
-        [SerializeField] private byte deviceID = 9;
+
+	    [SerializeField] private byte deviceID = 9;
         [SerializeField] private Mechanism mechanism;
         [SerializeField] private Board boardLink;
 
@@ -23,8 +24,9 @@ namespace Haply.hAPI
 
         private readonly byte[] actuatorPositions = { 0, 0, 0, 0 };
         private readonly byte[] encoderPositions = { 0, 0, 0, 0 };
+	    public DeviceConfig ConfigData => configData;
 
-        private void Awake()
+        private void OnEnable()
         {
 	        if(mechanism == null) mechanism = FindObjectOfType<Mechanism>();
 	        if(boardLink == null) boardLink = FindObjectOfType<Board>();

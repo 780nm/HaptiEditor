@@ -1,13 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO.Ports;
+using Haply.hAPI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LiveReloadBoard : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private TMP_Dropdown portsDropdown;
     [SerializeField] private EndEffectorManager endEffectorManager;
+    [SerializeField] private Device device;
+    [SerializeField] private DeviceConfig Gen2Default;
+    [SerializeField] private DeviceConfig Gen3Default;
+    [Space(10)] 
+    [SerializeField] private TMP_Dropdown boardTypeField;
+    [SerializeField] private TMP_Dropdown customPortField;
+    [SerializeField] private TMP_Dropdown leftEncoderField;
+    [SerializeField] private TMP_Dropdown rightEncoderField;
+    [SerializeField] private TMP_Dropdown leftActuatorField;
+    [SerializeField] private TMP_Dropdown rightActuatorField;
+    [SerializeField] private TMP_InputField leftOffsetField;
+    [SerializeField] private TMP_InputField rightOffsetField;
+    [SerializeField] private TMP_InputField boardResolutionField;
+    [SerializeField] private Toggle flippedStylusButtonField;
     
     private DeviceConfig customConfig;
     private string[] ports;
@@ -23,6 +40,25 @@ public class LiveReloadBoard : MonoBehaviour
         ports = GetAvailablePorts();
         portsDropdown.ClearOptions();
         portsDropdown.AddOptions(new List<string>(ports));
+        SetFullConfig(device.ConfigData);
+    }
+
+    
+    private void SetFullConfig(DeviceConfig config)
+    {
+        boardTypeField.value = config.BoardType == BoardTypes.Gen3 ? 0 : 1;
+        leftEncoderField.value = config.EncoderRotations.Rotation1 == Rotation.CW ? 0 : 1;
+        rightEncoderField.value = config.EncoderRotations.Rotation2 == Rotation.CW ? 0 : 1;
+        leftActuatorField.value = config.ActuatorRotations.Rotation1 == Rotation.CW ? 0 : 1;
+        rightActuatorField.value = config.ActuatorRotations.Rotation2 == Rotation.CW ? 0 : 1;
+        leftOffsetField.text = config.Offset.Left.ToString();
+        rightOffsetField.text = config.Offset.Right.ToString();
+        customConfig = config;
+    }
+
+    public void SetPreset(int value)
+    {
+        SetFullConfig(value == 0 ? Gen3Default : Gen2Default);
     }
 
     public void SetBoardType(int value)
@@ -91,12 +127,18 @@ public class LiveReloadBoard : MonoBehaviour
     {
         if(isInvalid)
         {
-            title.SetText("Invalid!");
+            title.SetText("Invalid! Check Offsets!");
+            throw new Exception("Not Valid Config Values!");
         }
         else
         {
             title.SetText("Updating Board!");
-            endEffectorManager.ReloadBoard(customConfig, targetPort);
+            try{
+                endEffectorManager.ReloadBoard(customConfig, targetPort);
+            }
+            catch
+            {
+            }
         }
     }
     
