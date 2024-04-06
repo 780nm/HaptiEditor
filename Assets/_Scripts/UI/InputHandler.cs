@@ -14,11 +14,11 @@ public class InputHandler : SingletonMonoBehavior<InputHandler>
         {
             if (Input.GetKeyDown(key))
             {
-                OnKeyDownEvent.Invoke(key);
+                OnKeyDownEvent?.Invoke(key);
             }
             if (Input.GetKeyUp(key))
             {
-                OnKeyUpEvent.Invoke(key);
+                OnKeyUpEvent?.Invoke(key);
             }
         }
     }

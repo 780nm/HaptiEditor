@@ -10,6 +10,8 @@ public class Zoomer : SingletonMonoBehavior<Zoomer>
     [Range(1, 100)] [SerializeField] private float eeScaleFactor;
     [SerializeField] private Transform cam;
     [Range(1, 100)] [SerializeField] private float cameraMoveFactor;
+    [SerializeField] private float lowerLimit = 0.25f;
+    [SerializeField] private float upperLimit = 4f;
     
     [Space]
     [Tooltip("Leave at 0 to keep the end effector touching the terrain")]
@@ -36,13 +38,13 @@ public class Zoomer : SingletonMonoBehavior<Zoomer>
     private void OnKeyPress(KeyCode key)
     {
         if (isZooming) return;
-        if (key == zoomInKey)
+        if (key == zoomInKey )
         {
-            zoomDirection = 1;
+            zoomDirection = -1;
         }
         else if (key == zoomOutKey)
         {
-            zoomDirection = -1;
+            zoomDirection = 1;
         }
         else return;
         zoomCoroutine = StartCoroutine(ZoomCoroutine());
@@ -69,6 +71,10 @@ public class Zoomer : SingletonMonoBehavior<Zoomer>
 
     private void Zoom()
     {
+        Vector3 localScale = endEffector.localScale;
+        bool isSmallest = zoomDirection == -1 && localScale.x < lowerLimit;
+        bool isBiggest = zoomDirection == 1 && localScale.x > upperLimit;
+        if (isSmallest || isBiggest) return;
         SetEndEffectorScale();
         MoveCamera();
     }

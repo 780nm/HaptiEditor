@@ -3110,7 +3110,6 @@ GameObject:
   - component: {fileID: 996432302}
   - component: {fileID: 996432301}
   - component: {fileID: 996432300}
-  - component: {fileID: 996432303}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -3153,7 +3152,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2ad85dfe2430c9944a67aabf28740c2d, type: 2}
+  - {fileID: 2100000, guid: f7e8503310670e744a4095d8aaf0136f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3197,28 +3196,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
   mr: {fileID: 996432300}
---- !u!64 &996432303
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 996432297}
-  m_Material: {fileID: 13400000, guid: c1622edb883467843afc4212e4cc2401, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1078732499
 GameObject:
   m_ObjectHideFlags: 0
@@ -3305,13 +3282,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078732499}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.36933538, y: -0.000005580485, z: 0.0000013783574, w: -0.9292962}
-  m_LocalPosition: {x: -0, y: 6.47, z: -12.6}
+  m_LocalRotation: {x: -0.48747298, y: -0.000005712655, z: 0.0000006381673, w: -0.8731381}
+  m_LocalPosition: {x: -0, y: 9.5, z: -12.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 43.349, y: -359.999, z: 0}
+  m_LocalEulerAnglesHint: {x: 58.349, y: -359.999, z: 0}
 --- !u!114 &1078732503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6914,6 +6891,8 @@ MonoBehaviour:
   eeScaleFactor: 50
   cam: {fileID: 1078732502}
   cameraMoveFactor: 9
+  lowerLimit: 0.25
+  upperLimit: 4
   zoomInKey: 113
   zoomOutKey: 101
 --- !u!1 &2105195025
@@ -7318,7 +7297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caae2930a4d29934f99cada4224e6f12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetPort: COM7
+  TargetPort: COM5
   baudRate: 0
   serialTimeout: 0
 --- !u!33 &4901942469656352719
@@ -7377,7 +7356,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configData: {fileID: 11400000, guid: 7f0d5a49d3156f742a8b3cfa19eec549, type: 2}
-  deviceID: 9
   mechanism: {fileID: 1106995333277356692}
   boardLink: {fileID: 4666186957624339291}
 --- !u!1 &7255104634367663780
@@ -7501,7 +7479,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5520209292742630153}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2b07efa13f69b04bbd9d2410b011082, type: 3}
   m_Name: 
@@ -7509,6 +7487,7 @@ MonoBehaviour:
   intensity: 1
   endEffectorRepresentation: {fileID: 8983390839447266244}
   movementThreshold: 0
+  terrain: {fileID: 0}
 --- !u!23 &8906396200438866666
 MeshRenderer:
   m_ObjectHideFlags: 0

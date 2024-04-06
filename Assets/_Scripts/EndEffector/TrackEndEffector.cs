@@ -1,10 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class TrackEndEffector : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private Transform endEffectorRepresentation;
+
+    private void Start()
+    {
+        Invoke(nameof(CenterEndEffector), 0.5f);
+    }
 
     public void CenterEndEffector()
     {
