@@ -80,12 +80,18 @@ public class ButtonHandler : MonoBehaviour
 
     public void OnKeyDown(KeyCode key)
     {
-        ButtonPressed.Invoke();
+        if (key == KeyCode.Space)
+        {
+            ButtonPressed.Invoke();
+        }
     }
 
     public void OnKeyUp(KeyCode key)
     {
-        ButtonReleased.Invoke();
+        if (key == KeyCode.Space)
+        {
+            ButtonReleased.Invoke();
+        }
     }
     
     private void DoButton(float[] sensorData)
