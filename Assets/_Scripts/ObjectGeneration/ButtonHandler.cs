@@ -49,6 +49,11 @@ public class ButtonHandler : MonoBehaviour
         endEffectorManager.OnSimulationStep += DoButton;
     }
 
+    public void SetButtonState(bool state)
+    {
+        isButtonFlipped = state;
+    }
+
     private void OnDisable()
     {
         endEffectorManager.OnSimulationStep -= DoButton;

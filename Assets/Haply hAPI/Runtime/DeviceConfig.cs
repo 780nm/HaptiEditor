@@ -10,6 +10,28 @@ public class DeviceConfig : ScriptableObject
     public Offset Offset;
     public int Resolution;
     public bool FlippedStylusButton;
+
+    public void Init(DeviceConfig config)
+    {
+        BoardType = config.BoardType;
+        EncoderRotations = new EncoderRotations
+        {
+            Rotation1 = config.EncoderRotations.Rotation1,
+            Rotation2 = config.EncoderRotations.Rotation2
+        };
+        ActuatorRotations = new ActuatorRotations
+        {
+            Rotation1 = config.ActuatorRotations.Rotation1,
+            Rotation2 = config.ActuatorRotations.Rotation2
+        };
+        Offset = new Offset
+        {
+            Left = config.Offset.Left,
+            Right = config.Offset.Right
+        };
+        Resolution = config.Resolution;
+        FlippedStylusButton = config.FlippedStylusButton;
+    }
 }
 [Serializable]
 public enum BoardTypes

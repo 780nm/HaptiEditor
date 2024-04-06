@@ -6,11 +6,11 @@ namespace Haply.hAPI
     public class Device : MonoBehaviour
     {
 	    [SerializeField] private DeviceConfig configData;
-
-	    [SerializeField] private byte deviceID = 9;
         [SerializeField] private Mechanism mechanism;
         [SerializeField] private Board boardLink;
 
+        private const byte DEVICE_ID = 9;
+        
         private byte commmunicationType;
         private int actuatorsActive;
         private int encodersActive;
@@ -26,7 +26,12 @@ namespace Haply.hAPI
         private readonly byte[] encoderPositions = { 0, 0, 0, 0 };
 	    public DeviceConfig ConfigData => configData;
 
-        private void OnEnable()
+        private void Start()
+        {
+	        Init();
+        }
+
+        public void Init()
         {
 	        if(mechanism == null) mechanism = FindObjectOfType<Mechanism>();
 	        if(boardLink == null) boardLink = FindObjectOfType<Board>();
@@ -414,7 +419,7 @@ namespace Haply.hAPI
 			Array.Copy( sensorParams, 0, encMtrSenPwm, motorParams.Length + encoderParams.Length, sensorParams.Length );
 			Array.Copy( pwmParams, 0, encMtrSenPwm, motorParams.Length + encoderParams.Length + sensorParams.Length, pwmParams.Length );
 
-			boardLink.Transmit( commmunicationType, deviceID, encMtrSenPwm, encoderParameters );
+			boardLink.Transmit( commmunicationType, DEVICE_ID, encMtrSenPwm, encoderParameters );
 		}
 		
 		/// <summary>
@@ -457,7 +462,7 @@ namespace Haply.hAPI
 			commmunicationType = 2;
 			int dataCount = 0;
 
-			float[] deviceData = boardLink.Receive(deviceID, sensorsActive + encodersActive);
+			float[] deviceData = boardLink.Receive(DEVICE_ID, sensorsActive + encodersActive);
 
 			for ( int i = 0; i < sensorsActive; i++ )
 			{
@@ -496,7 +501,7 @@ namespace Haply.hAPI
 				j++;
 			}
 
-			boardLink.Transmit( commmunicationType, deviceID, pulses, encoderRequest );
+			boardLink.Transmit( commmunicationType, DEVICE_ID, pulses, encoderRequest );
 		}
 
 		/// <summary>
@@ -523,7 +528,7 @@ namespace Haply.hAPI
 				j++;
 			}
 
-			boardLink.Transmit( commmunicationType, deviceID, pulses, deviceTorques );
+			boardLink.Transmit( commmunicationType, DEVICE_ID, pulses, deviceTorques );
 		}
 		
 		/// <summary>

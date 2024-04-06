@@ -11,6 +11,7 @@ public class LiveReloadBoard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private TMP_Dropdown portsDropdown;
     [SerializeField] private EndEffectorManager endEffectorManager;
+    [SerializeField] private Board board;
     [SerializeField] private Device device;
     [SerializeField] private DeviceConfig Gen2Default;
     [SerializeField] private DeviceConfig Gen3Default;
@@ -42,10 +43,20 @@ public class LiveReloadBoard : MonoBehaviour
         portsDropdown.AddOptions(new List<string>(ports));
         SetFullConfig(device.ConfigData);
     }
-
     
     private void SetFullConfig(DeviceConfig config)
     {
+        int portIndex = 0;
+        string[] availablePorts = GetAvailablePorts();
+        foreach (string port in availablePorts)
+        {
+            if (port.Equals(board.TargetPort))
+            {
+                break;
+            }
+            portIndex++;
+        }
+        customPortField.value = portIndex < availablePorts.Length ? portIndex : 0;
         boardTypeField.value = config.BoardType == BoardTypes.Gen3 ? 0 : 1;
         leftEncoderField.value = config.EncoderRotations.Rotation1 == Rotation.CW ? 0 : 1;
         rightEncoderField.value = config.EncoderRotations.Rotation2 == Rotation.CW ? 0 : 1;
@@ -53,7 +64,11 @@ public class LiveReloadBoard : MonoBehaviour
         rightActuatorField.value = config.ActuatorRotations.Rotation2 == Rotation.CW ? 0 : 1;
         leftOffsetField.text = config.Offset.Left.ToString();
         rightOffsetField.text = config.Offset.Right.ToString();
-        customConfig = config;
+        boardResolutionField.text = config.Resolution.ToString();
+        flippedStylusButtonField.isOn = config.FlippedStylusButton;
+        
+        customConfig = ScriptableObject.CreateInstance<DeviceConfig>();
+        customConfig.Init(config);
     }
 
     public void SetPreset(int value)
@@ -64,63 +79,53 @@ public class LiveReloadBoard : MonoBehaviour
     public void SetBoardType(int value)
     {
         customConfig.BoardType = value == 0 ? BoardTypes.Gen3 : BoardTypes.Gen2;
-        Debug.Log(customConfig.BoardType.ToString());
     }
     
     public void SetCustomPort(int value)
     {
         targetPort = ports[value];
-        Debug.Log(targetPort);
     }
     
     public void SetLeftEncoder(int value)
     {
         customConfig.EncoderRotations.Rotation1 = value == 0 ? Rotation.CW : Rotation.CCW;
-        Debug.Log(customConfig.EncoderRotations.Rotation1.ToString());
     }
     
     public void SetRightEncoder(int value)
     {
         customConfig.EncoderRotations.Rotation2 = value == 0 ? Rotation.CW : Rotation.CCW;
-        Debug.Log(customConfig.EncoderRotations.Rotation2.ToString());
     }
 
     public void SetLeftActuator(int value)
     {
         customConfig.ActuatorRotations.Rotation1 = value == 0 ? Rotation.CW : Rotation.CCW;
-        Debug.Log(customConfig.ActuatorRotations.Rotation1.ToString());
     }
     
     public void SetRightActuator(int value)
     {
         customConfig.ActuatorRotations.Rotation2 = value == 0 ? Rotation.CW : Rotation.CCW;
-        Debug.Log(customConfig.ActuatorRotations.Rotation2.ToString());
     }
     
     public void SetLeftOffset(string value)
     {
         customConfig.Offset.Left = int.Parse(value);
-        Debug.Log(customConfig.Offset.Left);
         isInvalid = customConfig.Offset.Left is < 0 or > 360;
     }
     
     public void SetRightOffset(string value)
     {
         customConfig.Offset.Right = int.Parse(value);
-        Debug.Log(customConfig.Offset.Right);
         isInvalid = customConfig.Offset.Left is < 0 or > 360;
     }
 
     public void SetBoardResolution(string value)
     {
         customConfig.Resolution = int.Parse(value);
-        Debug.Log(customConfig.Resolution);
     }
 
     public void SetStylusButton(bool isFlipped)
     {
         customConfig.FlippedStylusButton = isFlipped;
-        Debug.Log(customConfig.FlippedStylusButton);
     }
 
     public void LiveReload()
@@ -130,16 +135,8 @@ public class LiveReloadBoard : MonoBehaviour
             title.SetText("Invalid! Check Offsets!");
             throw new Exception("Not Valid Config Values!");
         }
-        else
-        {
-            title.SetText("Updating Board!");
-            try{
-                endEffectorManager.ReloadBoard(customConfig, targetPort);
-            }
-            catch
-            {
-            }
-        }
+        title.SetText("Updating Board!");
+        endEffectorManager.ReloadBoard(customConfig, targetPort);
     }
     
     private string [] GetAvailablePorts()

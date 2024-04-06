@@ -3855,7 +3855,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5220726757143442509}
+        m_TargetAssemblyTypeName: LiveReloadBoard, Assembly-CSharp
+        m_MethodName: SetPreset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!1 &2458125151996123651
 GameObject:
@@ -5575,8 +5587,20 @@ MonoBehaviour:
   title: {fileID: 2854108447604003242}
   portsDropdown: {fileID: 1047527382746769807}
   endEffectorManager: {fileID: 0}
+  board: {fileID: 0}
+  device: {fileID: 0}
   Gen2Default: {fileID: 11400000, guid: b030a827d48f8ac458011990a2e36d58, type: 2}
   Gen3Default: {fileID: 11400000, guid: dc657b3800037834283381d0634a285f, type: 2}
+  boardTypeField: {fileID: 3668200082575074687}
+  customPortField: {fileID: 1047527382746769807}
+  leftEncoderField: {fileID: 7814632758175396427}
+  rightEncoderField: {fileID: 7598820017527982121}
+  leftActuatorField: {fileID: 2021191972426496290}
+  rightActuatorField: {fileID: 6172932921778259303}
+  leftOffsetField: {fileID: 5447173241529797927}
+  rightOffsetField: {fileID: 4056518601958107193}
+  boardResolutionField: {fileID: 328388921120151652}
+  flippedStylusButtonField: {fileID: 4740104640131611015}
 --- !u!1 &3800996462854050181
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Haply.hAPI;
 using UnityEngine;
 using UnityEngine.Events;
+using Debug = UnityEngine.Debug;
 
 public class EndEffectorManager : MonoBehaviour
 {
@@ -66,13 +67,39 @@ public class EndEffectorManager : MonoBehaviour
         haplyBoard.DestroyBoard();
         CancelSimulation();
         SetForces(0f, 0f);
+        Destroy(pantograph.gameObject.GetComponent<Device>());
+        device = pantograph.gameObject.AddComponent<Device>();
+        device.Init();
         LoadBoard(customConfig, targetPort);
+        ButtonHandler buttonHandler = gameObject.GetComponent<ButtonHandler>();
+        if (buttonHandler != null)
+        {
+            Debug.Log("Button Handler: " + buttonHandler);
+            buttonHandler.SetButtonState(customConfig.FlippedStylusButton);
+        }
     }
+
+    // public void ResetPosition()
+    // {
+    //     ForceFeedbackHandler handler = gameObject.GetComponent<ForceFeedbackHandler>();
+    //     if(handler!=null)
+    //     {
+    //         handler.enabled = false;
+    //         StartCoroutine(EnableForceFeedback(handler));
+    //     }
+    //     endEffectorActual.transform.position -= initialOffset;
+    // }
+    //
+    // private IEnumerator EnableForceFeedback(ForceFeedbackHandler handler)
+    // {
+    //     yield return new WaitForSeconds(0.3f);
+    //     handler.enabled = true;
+    // } 
 
     private void LoadBoard(DeviceConfig customConfig = null, string targetPort = null)
     {
         device.LoadConfig(customConfig);
-        haplyBoard.Initialize();
+        haplyBoard.Initialize(targetPort);
         device.DeviceSetParameters();
         angles = new float[2];
         torques = new float[2];
@@ -190,7 +217,7 @@ public class EndEffectorManager : MonoBehaviour
             else position.y = endEffectorPosition[1];
         }
 
-        Vector3 targetPosition = position * movementScalingFactor + initialOffset;
+        Vector3 targetPosition = position * movementScalingFactor;
         targetPosition = targetPosition.XZPlane(endEffectorTransform.position.y);
         endEffectorTransform.position = targetPosition;
     }
