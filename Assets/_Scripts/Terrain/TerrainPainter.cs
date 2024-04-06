@@ -365,7 +365,7 @@ public enum TextureTypes
 {
     Dirt = 0,
     Grass = 1,
-    Sand = 2
+    Stone = 2
 }
 
 

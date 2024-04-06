@@ -234,7 +234,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Grass
       m_Image: {fileID: 0}
-    - m_Text: Sand
+    - m_Text: Stone
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1199,7 +1199,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -1549,9 +1549,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b07efa13f69b04bbd9d2410b011082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intensity: 4
+  intensity: 7.59
+  swatchscale: 20.25
   endEffectorRepresentation: {fileID: 2083529661}
-  movementThreshold: 0.001
+  movementThreshold: 0.0022
   terrain: {fileID: 8207424519841322349}
 --- !u!4 &783420772 stripped
 Transform:
@@ -3806,6 +3807,10 @@ PrefabInstance:
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 9043937320792110205, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6402237009589695926, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
     m_RemovedGameObjects: []
@@ -3907,7 +3912,7 @@ Transform:
   m_GameObject: {fileID: 9194895703287684746}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

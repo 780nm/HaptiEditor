@@ -1,6 +1,9 @@
 using UnityEngine.Events;
 using UnityEngine;
 using Unity.Burst.CompilerServices;
+using Unity.Mathematics;
+using UnityEngine.TerrainUtils;
+using System;
 [RequireComponent(typeof(EndEffectorManager))]
 public class TextureSampler : MonoBehaviour
 {
@@ -10,9 +13,10 @@ public class TextureSampler : MonoBehaviour
     /// Fires event on Stylus Button Pressed
     /// </summary>
     public float intensity;
+    public float swatchscale;
 
     [SerializeField] private GameObject endEffectorRepresentation;
-    [Range(0.0001f, 0.001f), SerializeField] private float movementThreshold;
+    [Range(0.0001f, 0.01f), SerializeField] private float movementThreshold;
 
     public Terrain terrain;
     
@@ -100,23 +104,25 @@ public class TextureSampler : MonoBehaviour
             normalizedPos.x * terrain.terrainData.alphamapWidth,
             normalizedPos.z * terrain.terrainData.alphamapHeight
         );
-        
 
-        for (int i = -1; i <= 1; i++)
-        {
-            for (int j = -1; j <= 1; j++)
-            {
-                float grayscale = 
-                     terrain.terrainData.alphamapTextures[0].GetPixel((int)pixelUV.x + i, (int)pixelUV.y + j).grayscale;
+        float[,,] swatch = terrain.terrainData.GetAlphamaps((int)pixelUV.x, (int)pixelUV.y, 1,1);
+        int maxTex = 0;
+        if (swatch[0, 0, 0] < swatch[0, 0, 1]) maxTex = 1;
+        if (swatch[0, 0, maxTex] < swatch[0, 0, 2]) maxTex = 2;
 
-                Vector2 direction = new Vector2(i, j);
-                direction.Normalize();
-                forces.x += direction.x * (0.5f - grayscale);
-                forces.y += direction.y * (0.5f - grayscale);
-            }
-        }
+        SplatPrototype prot = terrain.terrainData.splatPrototypes[maxTex];
 
-        
+        Vector2 normalUV = new Vector2(
+            pixelUV.x * swatchscale % prot.normalMap.width,
+            pixelUV.y * swatchscale % prot.normalMap.height
+        );
+
+        //print(normalUV);
+
+        Color normalPixel = prot.normalMap.GetPixel((int)normalUV.x, (int)normalUV.y);
+
+        forces.x += normalPixel.r - 0.5f;
+        forces.y += normalPixel.g - 0.5f;
 
         forces *= intensity;
         previousPosition = eeTransform.position;
