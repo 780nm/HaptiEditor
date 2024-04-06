@@ -47,6 +47,9 @@ public class ButtonHandler : MonoBehaviour
     {
         isButtonFlipped = endEffectorManager.GetButtonState();
         endEffectorManager.OnSimulationStep += DoButton;
+
+        InputHandler.Instance.OnKeyDownEvent += OnKeyDown;
+        InputHandler.Instance.OnKeyUpEvent += OnKeyUp;
     }
 
     public void SetButtonState(bool state)
@@ -57,6 +60,8 @@ public class ButtonHandler : MonoBehaviour
     private void OnDisable()
     {
         endEffectorManager.OnSimulationStep -= DoButton;
+        InputHandler.Instance.OnKeyDownEvent -= OnKeyDown;
+        InputHandler.Instance.OnKeyUpEvent -= OnKeyUp;
     }
 
     private void LateUpdate()
@@ -73,6 +78,16 @@ public class ButtonHandler : MonoBehaviour
 
     #region Private Vars
 
+    public void OnKeyDown(KeyCode key)
+    {
+        ButtonPressed.Invoke();
+    }
+
+    public void OnKeyUp(KeyCode key)
+    {
+        ButtonReleased.Invoke();
+    }
+    
     private void DoButton(float[] sensorData)
     {
         float buttonSensor = sensorData[0];

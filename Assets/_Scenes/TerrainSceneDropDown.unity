@@ -1456,6 +1456,19 @@ MonoBehaviour:
   endEffectorRepresentation: {fileID: 2083529661}
   movementThreshold: 0.001
   terrain: {fileID: 8207424519841322349}
+--- !u!114 &783420776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783420766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a5c2b4f5e5442b9c7b8a697d064bf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeysToWatch: 20000000
 --- !u!1 &833230703
 GameObject:
   m_ObjectHideFlags: 0
@@ -3590,12 +3603,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5594588929611744768, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: TargetPort
-      value: COM3
+      value: COM5
       objectReference: {fileID: 0}
     - target: {fileID: 6039017206879678514, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: configData
       value: 
-      objectReference: {fileID: 11400000, guid: e68037d4a79f2754db571f421d902220, type: 2}
+      objectReference: {fileID: 11400000, guid: dc657b3800037834283381d0634a285f, type: 2}
     - target: {fileID: 6402237009589695926, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -3715,6 +3728,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4754079058007504466, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 783420771}
+    - targetCorrespondingSourceObject: {fileID: 4754079058007504466, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 783420776}
   m_SourcePrefab: {fileID: 100100000, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
 --- !u!1 &2083529661 stripped
 GameObject:
