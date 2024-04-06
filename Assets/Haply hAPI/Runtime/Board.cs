@@ -47,7 +47,7 @@ namespace Haply.hAPI
             }
             try
             {
-                TargetPort ??= customPort;
+                if (customPort != null) TargetPort = customPort;
                 port = new SerialPort(TargetPort, baudRate);
                 port.ReadTimeout = serialTimeout;
                 port.WriteTimeout = serialTimeout;

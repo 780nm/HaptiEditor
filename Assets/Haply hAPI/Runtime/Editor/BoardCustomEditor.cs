@@ -1,10 +1,13 @@
-﻿using System.IO.Ports;
+﻿#if UNITY_EDITOR
+
+
+using System.IO.Ports;
 using Haply.hAPI;
 using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(Board))]
-public class BoardCustomEditor : Editor
+public class BoardCustomEditor : UnityEditor.Editor
 {
     private SerializedProperty portProperty;
     public override void OnInspectorGUI()
@@ -50,3 +53,5 @@ public class BoardCustomEditor : Editor
         return SerialPort.GetPortNames();
     }
 }
+
+#endif

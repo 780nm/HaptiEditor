@@ -4,6 +4,7 @@ using System.IO.Ports;
 using Haply.hAPI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class LiveReloadBoard : MonoBehaviour
@@ -13,8 +14,8 @@ public class LiveReloadBoard : MonoBehaviour
     [SerializeField] private EndEffectorManager endEffectorManager;
     [SerializeField] private Board board;
     [SerializeField] private Device device;
-    [SerializeField] private DeviceConfig Gen2Default;
-    [SerializeField] private DeviceConfig Gen3Default;
+    [SerializeField] private DeviceConfig gen2Default;
+    [SerializeField] private DeviceConfig gen3Default;
     [Space(10)] 
     [SerializeField] private TMP_Dropdown boardTypeField;
     [SerializeField] private TMP_Dropdown customPortField;
@@ -38,12 +39,17 @@ public class LiveReloadBoard : MonoBehaviour
         customConfig.ActuatorRotations = new ActuatorRotations();
         customConfig.EncoderRotations = new EncoderRotations();
         customConfig.Offset = new Offset();
+        RefreshPorts();
+        SetFullConfig(device.ConfigData);
+    }
+
+    public void RefreshPorts()
+    {
         ports = GetAvailablePorts();
         portsDropdown.ClearOptions();
         portsDropdown.AddOptions(new List<string>(ports));
-        SetFullConfig(device.ConfigData);
     }
-    
+
     private void SetFullConfig(DeviceConfig config)
     {
         int portIndex = 0;
@@ -73,7 +79,7 @@ public class LiveReloadBoard : MonoBehaviour
 
     public void SetPreset(int value)
     {
-        SetFullConfig(value == 0 ? Gen3Default : Gen2Default);
+        SetFullConfig(value == 0 ? gen3Default : gen2Default);
     }
 
     public void SetBoardType(int value)
@@ -135,6 +141,7 @@ public class LiveReloadBoard : MonoBehaviour
             title.SetText("Invalid! Check Offsets!");
             throw new Exception("Not Valid Config Values!");
         }
+        targetPort = GetAvailablePorts()[portsDropdown.value];
         title.SetText("Updating Board!");
         endEffectorManager.ReloadBoard(customConfig, targetPort);
     }

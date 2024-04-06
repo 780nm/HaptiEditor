@@ -13,6 +13,7 @@ public class HotSwapColor : MonoBehaviour
     private void OnEnable()
     {
         mr = GetComponent<MeshRenderer>();
+        SetRandomColor();
     }
 
     private void OnValidate()
