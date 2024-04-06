@@ -106,11 +106,8 @@ public class TextureSampler : MonoBehaviour
         {
             for (int j = -1; j <= 1; j++)
             {
-                float grayscale = 0f;
-                for (int k = 0; k < terrain.terrainData.alphamapLayers; k++)
-                {
-                    grayscale += terrain.terrainData.alphamapTextures[0].GetPixel((int)pixelUV.x + i, (int)pixelUV.y + j).grayscale;
-                }
+                float grayscale = 
+                     terrain.terrainData.alphamapTextures[0].GetPixel((int)pixelUV.x + i, (int)pixelUV.y + j).grayscale;
 
                 Vector2 direction = new Vector2(i, j);
                 direction.Normalize();
