@@ -13,6 +13,8 @@ public class TextureSampler : MonoBehaviour
 
     [SerializeField] private GameObject endEffectorRepresentation;
     [Range(0.0001f, 0.001f), SerializeField] private float movementThreshold;
+
+    public Terrain terrain;
     
     #endregion
 
@@ -50,7 +52,7 @@ public class TextureSampler : MonoBehaviour
 
     private void LateUpdate()
     {
-        forces = Vector2.zero;
+        /*forces = Vector2.zero;
         Transform eeTransform = endEffectorRepresentation.transform;
         if ((eeTransform.position - previousPosition).magnitude < movementThreshold)
         {
@@ -76,6 +78,49 @@ public class TextureSampler : MonoBehaviour
                 forces.y += direction.y * (0.5f - mag);
             }
         }
+        forces *= intensity;
+        previousPosition = eeTransform.position;*/
+        forces = Vector2.zero;
+        Transform eeTransform = endEffectorRepresentation.transform;
+        if ((eeTransform.position - previousPosition).magnitude < movementThreshold)
+        {
+            previousPosition = eeTransform.position;
+            return;
+        }
+
+        Vector3 terrainLocalPos = endEffectorRepresentation.transform.position - terrain.transform.position;
+        Vector3 normalizedPos = new Vector3(
+            Mathf.InverseLerp(0, terrain.terrainData.size.x, terrainLocalPos.x),
+            0,
+            Mathf.InverseLerp(0, terrain.terrainData.size.z, terrainLocalPos.z)
+        );
+
+
+        Vector2 pixelUV = new Vector2(
+            normalizedPos.x * terrain.terrainData.alphamapWidth,
+            normalizedPos.z * terrain.terrainData.alphamapHeight
+        );
+        
+
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                float grayscale = 0f;
+                for (int k = 0; k < terrain.terrainData.alphamapLayers; k++)
+                {
+                    grayscale += terrain.terrainData.alphamapTextures[0].GetPixel((int)pixelUV.x + i, (int)pixelUV.y + j).grayscale;
+                }
+
+                Vector2 direction = new Vector2(i, j);
+                direction.Normalize();
+                forces.x += direction.x * (0.5f - grayscale);
+                forces.y += direction.y * (0.5f - grayscale);
+            }
+        }
+
+        
+
         forces *= intensity;
         previousPosition = eeTransform.position;
     }
