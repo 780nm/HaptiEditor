@@ -182,7 +182,7 @@ public class TerrainPainter : MonoBehaviour
                 // Add the TreeInstance to the terrain data
                 terrain.AddTreeInstance(newTree);
 
-                CreateCapsuleCollider(newTree);
+                //CreateCapsuleCollider(newTree);
                 
                 terrainIndex++;
             }
