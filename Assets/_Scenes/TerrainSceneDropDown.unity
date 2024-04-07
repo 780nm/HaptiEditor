@@ -3427,7 +3427,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 35611162}
         m_TargetAssemblyTypeName: TrackEndEffector, Assembly-CSharp
         m_MethodName: CenterEndEffector
         m_Mode: 1
