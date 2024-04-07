@@ -510,7 +510,7 @@ Transform:
   m_GameObject: {fileID: 35611158}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 20, z: -4.14}
+  m_LocalPosition: {x: 0, y: 20, z: -9.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -745,11 +745,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endEffector: {fileID: 783420772}
-  eeScaleFactor: 29.7
+  eeScaleFactor: 26.3
   cam: {fileID: 35611161}
-  cameraMoveFactor: 3.7
+  cameraMoveFactor: 5.1
+  eeManager: {fileID: 783420775}
+  eePositionFactor: 0.00000083
   lowerLimit: 0.25
-  upperLimit: 4
+  upperLimit: 6
   zoomInKey: 273
   zoomOutKey: 274
 --- !u!4 &180237264
@@ -1559,6 +1561,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1229940207004035222, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
   m_PrefabInstance: {fileID: 2083529660}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &783420775 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 218570639879186755, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
+  m_PrefabInstance: {fileID: 2083529660}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783420766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7819b28e10adf324c992893f2e369972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &833230703
 GameObject:
   m_ObjectHideFlags: 0
@@ -3647,6 +3660,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 218570639879186755, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
+      propertyPath: positionScale
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1229940207004035222, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3698,7 +3715,7 @@ PrefabInstance:
     - target: {fileID: 6039017206879678514, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: configData
       value: 
-      objectReference: {fileID: 11400000, guid: 7f0d5a49d3156f742a8b3cfa19eec549, type: 2}
+      objectReference: {fileID: 11400000, guid: dc657b3800037834283381d0634a285f, type: 2}
     - target: {fileID: 6402237009589695926, guid: b37e984bac7d7b04fa451c9373c2a71a, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -3953,7 +3970,7 @@ TerrainCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 7c07d5e7932b4d942b1692377f153224, type: 2}
-  m_EnableTreeColliders: 1
+  m_EnableTreeColliders: 0
 --- !u!1 &7595309986519411781
 GameObject:
   m_ObjectHideFlags: 0

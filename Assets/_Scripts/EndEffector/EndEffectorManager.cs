@@ -14,9 +14,10 @@ public class EndEffectorManager : MonoBehaviour
     /// Event fired on every simulation step, with sensor data
     /// </summary>
     public UnityAction<float[]> OnSimulationStep;
+    public float positionScale = 1;
 
     #endregion
-    
+
     #region Sfield Vars
 
     [SerializeField] private Board haplyBoard;
@@ -171,6 +172,10 @@ public class EndEffectorManager : MonoBehaviour
         device.GetDeviceAngles(ref angles);
         device.GetDevicePosition(angles, endEffectorPosition);
         endEffectorPosition = DeviceToGraphics(endEffectorPosition);
+
+        endEffectorPosition[1] += 0.03f; // Account for Haply baseline offset
+        endEffectorPosition[0] *= positionScale;
+        endEffectorPosition[1] *= positionScale;
     }
 
     #endregion

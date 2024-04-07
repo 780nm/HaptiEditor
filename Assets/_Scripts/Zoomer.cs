@@ -10,8 +10,10 @@ public class Zoomer : SingletonMonoBehavior<Zoomer>
     [Range(1, 100)] [SerializeField] private float eeScaleFactor;
     [SerializeField] private Transform cam;
     [Range(1, 100)] [SerializeField] private float cameraMoveFactor;
+    [SerializeField] private EndEffectorManager eeManager;
+    [Range(0, 0.00001f)][SerializeField] private float eePositionFactor;
     [SerializeField] private float lowerLimit = 0.25f;
-    [SerializeField] private float upperLimit = 4f;
+    [SerializeField] private float upperLimit = 6f;
     
     [Space]
     [Tooltip("Leave at 0 to keep the end effector touching the terrain")]
@@ -77,6 +79,7 @@ public class Zoomer : SingletonMonoBehavior<Zoomer>
         if (isSmallest || isBiggest) return;
         SetEndEffectorScale();
         MoveCamera();
+        SetEEPositionScale();
     }
 
     private void SetEndEffectorScale()
@@ -94,4 +97,10 @@ public class Zoomer : SingletonMonoBehavior<Zoomer>
     {
         cam.Translate(Vector3.forward * (Mathf.Pow(cameraMoveFactor, 3) * 0.0001f * -zoomDirection));
     }
+
+    private void SetEEPositionScale()
+    {
+        eeManager.positionScale += zoomDirection * eeScaleFactor * 0.0001f;
+    }
+
 }
