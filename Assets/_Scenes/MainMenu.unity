@@ -813,7 +813,8 @@ MonoBehaviour:
     on the Gen3 Stylus. The red dot above indicates \"Pressed\". If your button is
     inverted, set the stylus button to flipped in the config menu. If you do not
     have that, your keyboard's spacebar will also work, just make sure to set the
-    stylus button as flipped."
+    stylus button as flipped.\n\nTo start, move the end effector over the start button
+    and press the stylus button (or spacebar)!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -840,7 +841,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.45
+  m_fontSize: 26.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
