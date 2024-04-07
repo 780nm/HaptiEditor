@@ -45,6 +45,7 @@ public class LiveReloadBoard : MonoBehaviour
 
     public void RefreshPorts()
     {
+        title.SetText("Live Board Configurator");
         ports = GetAvailablePorts();
         portsDropdown.ClearOptions();
         portsDropdown.AddOptions(new List<string>(ports));

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Haply.hAPI;
 using UnityEngine;
 using UnityEngine.Events;
-using Debug = UnityEngine.Debug;
 
 public class EndEffectorManager : MonoBehaviour
 {
@@ -25,7 +24,7 @@ public class EndEffectorManager : MonoBehaviour
     [SerializeField] private Pantograph pantograph;
     [SerializeField] private bool is3D;
     [SerializeField] private GameObject endEffectorActual;
-    [Range(1,60)] [SerializeField] private float movementScalingFactor;
+    [Range(1,100)] [SerializeField] private float movementScalingFactor;
     
     #endregion
 
@@ -72,11 +71,8 @@ public class EndEffectorManager : MonoBehaviour
         device.Init();
         LoadBoard(customConfig, targetPort);
         ButtonHandler buttonHandler = gameObject.GetComponent<ButtonHandler>();
-        if (buttonHandler != null)
-        {
-            Debug.Log("Button Handler: " + buttonHandler);
-            buttonHandler.SetButtonState(customConfig.FlippedStylusButton);
-        }
+        if (buttonHandler == null) return;
+        buttonHandler.SetButtonState(customConfig.FlippedStylusButton);
     }
 
     // public void ResetPosition()
