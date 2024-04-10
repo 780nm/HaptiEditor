@@ -4,7 +4,6 @@ using System.IO.Ports;
 using Haply.hAPI;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class LiveReloadBoard : MonoBehaviour
@@ -14,6 +13,7 @@ public class LiveReloadBoard : MonoBehaviour
     [SerializeField] private EndEffectorManager endEffectorManager;
     [SerializeField] private Board board;
     [SerializeField] private Device device;
+    [SerializeField] private ConfigStorage configStorage;
     [SerializeField] private DeviceConfig gen2Default;
     [SerializeField] private DeviceConfig gen3Default;
     [Space(10)] 
@@ -145,6 +145,9 @@ public class LiveReloadBoard : MonoBehaviour
         targetPort = GetAvailablePorts()[portsDropdown.value];
         title.SetText("Updating Board!");
         endEffectorManager.ReloadBoard(customConfig, targetPort);
+        if (configStorage == null) return;
+        configStorage.Config = customConfig;
+        configStorage.Port = targetPort;
     }
     
     private string [] GetAvailablePorts()

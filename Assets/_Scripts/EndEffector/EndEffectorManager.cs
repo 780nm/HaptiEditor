@@ -59,7 +59,8 @@ public class EndEffectorManager : MonoBehaviour
 
     private void Start()
     {
-        LoadBoard();
+        ConfigStorage configStorage = GameObject.FindWithTag("Transition").GetComponent<ConfigStorage>();
+        LoadBoard(configStorage.Config, configStorage.Port);
     }
 
     public void ReloadBoard(DeviceConfig customConfig, string targetPort)

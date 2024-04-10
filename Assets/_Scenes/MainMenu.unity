@@ -437,9 +437,10 @@ GameObject:
   - component: {fileID: 517997981}
   - component: {fileID: 517997980}
   - component: {fileID: 517997982}
+  - component: {fileID: 517997983}
   m_Layer: 0
   m_Name: Transition
-  m_TagString: Untagged
+  m_TagString: Transition
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -488,6 +489,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetScene: TerrainSceneDropDown
   transitionHandler: {fileID: 517997980}
+--- !u!114 &517997983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517997979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c0f113a3261c244b55a7cdaad88c95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &548462165
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,6 +2795,10 @@ PrefabInstance:
       propertyPath: device
       value: 
       objectReference: {fileID: 2246196267794510576}
+    - target: {fileID: 5220726757143442509, guid: 66eee813c8b6af0498e029d7cdf64c69, type: 3}
+      propertyPath: configStorage
+      value: 
+      objectReference: {fileID: 517997983}
     - target: {fileID: 5220726757143442509, guid: 66eee813c8b6af0498e029d7cdf64c69, type: 3}
       propertyPath: endEffectorManager
       value: 
