@@ -12,6 +12,7 @@ public class LevelTransitionHandler : MonoBehaviour
 
     private void Start()
     {
+        cover.SetActive(true);
         StartLevel();
     }
 

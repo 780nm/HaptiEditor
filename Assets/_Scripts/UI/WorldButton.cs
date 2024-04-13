@@ -1,21 +1,25 @@
 using System;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class WorldButton : MonoBehaviour
 {
-    [SerializeField] private SceneManager sceneManager;
-    [SerializeField] private ButtonHandler buttonHandler;
+    public UnityEvent WorldButtonPressed;
     
+    [SerializeField] private ButtonHandler buttonHandler;
+    [SerializeField] private Color baseColor;
+    [SerializeField] private Color hoverColor;
+    [SerializeField] private Color activateColor;
     [SerializeField] private float buttonDownAmount = 0.5f;
 
     private HotSwapColor hotSwap;
     private bool isPressed = false;
+    private bool isActivated = false;
 
     private void OnEnable()
     {
         hotSwap = GetComponent<HotSwapColor>();
-        hotSwap.SetValue(0.5f);
         buttonHandler.ButtonPressed.AddListener(ActivateButton);
     }
 
@@ -26,22 +30,25 @@ public class WorldButton : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isActivated) return;
         transform.DOMoveY(transform.position.y - buttonDownAmount, 0.05f).SetEase(Ease.InQuad);
         isPressed = true;
-        hotSwap.SetValue(2f);
+        hotSwap.LerpColor(hoverColor, 0.5f);
     }
 
     private void OnTriggerExit(Collider other)
     {
+        if (isActivated) return;
         transform.DOMoveY(transform.position.y + buttonDownAmount, 0.05f).SetEase(Ease.OutQuad);
         isPressed = false;
-        hotSwap.SetValue(0.5f);
+        hotSwap.LerpColor(baseColor, 0.5f);
     }
 
     private void ActivateButton()
     {
-        if (!isPressed) return;
-        sceneManager.LoadNextScene();
-        hotSwap.SetValue(2f);
+        if (!isPressed || isActivated) return;
+        WorldButtonPressed?.Invoke();
+        hotSwap.LerpColor(activateColor, 0.5f);
+        isActivated = true;
     }
 }

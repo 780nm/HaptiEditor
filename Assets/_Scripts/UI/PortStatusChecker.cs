@@ -8,6 +8,9 @@ public class PortStatusChecker : MonoBehaviour
 {
     [SerializeField] private Board board;
     [SerializeField] private TextMeshProUGUI tmp;
+    [SerializeField] private string noPortsMessage;
+    [SerializeField] private string incorrectPortMessage;
+    [SerializeField] private string activeConnectionMessage;
     
     private void OnEnable()
     {
@@ -18,17 +21,17 @@ public class PortStatusChecker : MonoBehaviour
     {
         if(GetAvailablePorts().Length<=0)
         {
-            tmp.SetText("Please connect your board!");
+            tmp.SetText(noPortsMessage);
             return;
         }
 
         if (!board.HasBeenInitialized)
         {
-            tmp.SetText("Please select correct port!");
+            tmp.SetText(incorrectPortMessage);
             return;
         }
         
-        tmp.SetText("Board is connected!");
+        tmp.SetText(activeConnectionMessage);
     }
     
     private string [] GetAvailablePorts()

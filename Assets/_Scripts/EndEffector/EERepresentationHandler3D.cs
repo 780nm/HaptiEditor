@@ -18,14 +18,16 @@ public class EERepresentationHandler3D : EERepresentationHandler
         col = GetComponent<Collider>();
     }
 
-    private void OnCollisionEnter() 
+    private void OnCollisionEnter(Collision other)
     {
+        if (other.collider.isTrigger) return;
         NumberOfCollisions++;
         OnCollision?.Invoke(IsTouching());
     }
 
-    private void OnCollisionExit() 
+    private void OnCollisionExit(Collision other) 
     {
+        if (other.collider.isTrigger) return;
         NumberOfCollisions--;
         OnCollision?.Invoke(IsTouching());
     }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class HotSwapColor : MonoBehaviour
@@ -5,6 +6,7 @@ public class HotSwapColor : MonoBehaviour
     [SerializeField] private Color color;
     [SerializeField] private MeshRenderer mr;
     
+    private Coroutine colorTransitionCoroutine;
     private MaterialPropertyBlock mpb;
     private static readonly int shaderProp = Shader.PropertyToID("_Color");
 
@@ -50,5 +52,31 @@ public class HotSwapColor : MonoBehaviour
     {
         Mpb.SetColor(shaderProp, color);
         mr.SetPropertyBlock(Mpb);
+    }
+    
+    public void LerpColor(Color targetColor, float transitionDuration)
+    {
+        if (colorTransitionCoroutine != null)
+            StopCoroutine(colorTransitionCoroutine);
+    
+        colorTransitionCoroutine = StartCoroutine(ColorTransitionCoroutine(targetColor, transitionDuration));
+    }
+
+    private IEnumerator ColorTransitionCoroutine(Color targetColor, float transitionDuration)
+    {
+        Color startColor = Mpb.GetColor(shaderProp);
+        float elapsedTime = 0f;
+
+        while (elapsedTime < transitionDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / transitionDuration);
+            Color lerpedColor = Color.Lerp(startColor, targetColor, t);
+            SetColor(lerpedColor);
+            yield return null;
+        }
+
+        SetColor(targetColor);
+        colorTransitionCoroutine = null;
     }
 }
