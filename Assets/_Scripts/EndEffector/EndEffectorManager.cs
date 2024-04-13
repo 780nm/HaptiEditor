@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Haply.hAPI;
 using UnityEngine;
 using UnityEngine.Events;
+using Debug = UnityEngine.Debug;
 
 public class EndEffectorManager : MonoBehaviour
 {
@@ -59,8 +60,22 @@ public class EndEffectorManager : MonoBehaviour
 
     private void Start()
     {
-        ConfigStorage configStorage = GameObject.FindWithTag("Transition").GetComponent<ConfigStorage>();
-        LoadBoard(configStorage.Config, configStorage.Port);
+        try
+        {
+            ConfigStorage configStorage = GameObject.FindWithTag("Transition").GetComponent<ConfigStorage>();
+            if (configStorage != null) LoadBoard(configStorage.Config, configStorage.Port);
+            else
+            {
+                Debug.LogWarning("Couldn't find custom config! Using dev config instead!");
+                LoadBoard();
+            }
+        }
+        catch
+        {
+            Debug.LogWarning("Couldn't find Transition Handler!");
+            LoadBoard();
+        }
+        
     }
 
     public void ReloadBoard(DeviceConfig customConfig, string targetPort)
@@ -77,25 +92,10 @@ public class EndEffectorManager : MonoBehaviour
         buttonHandler.SetButtonState(customConfig.FlippedStylusButton);
     }
 
-    // public void ResetPosition()
-    // {
-    //     ForceFeedbackHandler handler = gameObject.GetComponent<ForceFeedbackHandler>();
-    //     if(handler!=null)
-    //     {
-    //         handler.enabled = false;
-    //         StartCoroutine(EnableForceFeedback(handler));
-    //     }
-    //     endEffectorActual.transform.position -= initialOffset;
-    // }
-    //
-    // private IEnumerator EnableForceFeedback(ForceFeedbackHandler handler)
-    // {
-    //     yield return new WaitForSeconds(0.3f);
-    //     handler.enabled = true;
-    // } 
-
     private void LoadBoard(DeviceConfig customConfig = null, string targetPort = null)
     {
+        if(customConfig==null) Debug.LogWarning("Custom Config is null! Using Dev Config!");
+        if(targetPort==null) Debug.LogWarning("Custom Port is null! Using Dev Port!");
         device.LoadConfig(customConfig);
         haplyBoard.Initialize(targetPort);
         device.DeviceSetParameters();
