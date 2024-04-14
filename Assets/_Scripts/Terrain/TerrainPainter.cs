@@ -182,7 +182,7 @@ public class TerrainPainter : MonoBehaviour
                 // Add the TreeInstance to the terrain data
                 terrain.AddTreeInstance(newTree);
 
-                //CreateCapsuleCollider(newTree);
+                CreateCapsuleCollider(newTree);
                 
                 terrainIndex++;
             }
@@ -208,6 +208,7 @@ public class TerrainPainter : MonoBehaviour
         capsuleCollider.center = new Vector3(0, 5, 0);
         capsuleCollider.height = 10;
         capsuleCollider.radius = 0.5f; // Radius of the capsule
+        capsuleCollider.providesContacts = false;
 
 
         DestroyableTree tree = capsule.AddComponent<DestroyableTree>();
@@ -271,7 +272,6 @@ public class TerrainPainter : MonoBehaviour
 
     public void SetBrushSpecifics(TMP_Dropdown dropDown)
     {
-        Debug.Log("SET");
         switch (brushType)
         {
             case (BrushType.Texture):
