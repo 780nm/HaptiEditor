@@ -63,7 +63,13 @@ public class EndEffectorManager : MonoBehaviour
         try
         {
             ConfigStorage configStorage = GameObject.FindWithTag("Transition").GetComponent<ConfigStorage>();
-            if (configStorage != null) LoadBoard(configStorage.Config, configStorage.Port);
+            if (configStorage != null)
+            {
+                LoadBoard(configStorage.Config, configStorage.Port);
+                ButtonHandler buttonHandler = gameObject.GetComponent<ButtonHandler>();
+                if (buttonHandler == null) return;
+                buttonHandler.SetButtonState(configStorage.Config.FlippedStylusButton);            
+            }
             else
             {
                 Debug.LogWarning("Couldn't find custom config! Using dev config instead!");

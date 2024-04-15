@@ -17,8 +17,8 @@ MonoBehaviour:
     Rotation1: 1
     Rotation2: 1
   ActuatorRotations:
-    Rotation1: 0
-    Rotation2: 0
+    Rotation1: 1
+    Rotation2: 1
   Offset:
     Left: 170
     Right: 10
