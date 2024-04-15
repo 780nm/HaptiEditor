@@ -50,11 +50,13 @@ public class ButtonHandler : MonoBehaviour
 
         InputHandler.Instance.OnKeyDownEvent += OnKeyDown;
         InputHandler.Instance.OnKeyUpEvent += OnKeyUp;
+        ButtonReleased.Invoke();
     }
 
     public void SetButtonState(bool state)
     {
         isButtonFlipped = state;
+        ButtonReleased.Invoke();
     }
 
     private void OnDisable()
