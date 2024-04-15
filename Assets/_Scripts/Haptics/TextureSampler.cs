@@ -56,34 +56,6 @@ public class TextureSampler : MonoBehaviour
 
     private void LateUpdate()
     {
-        /*forces = Vector2.zero;
-        Transform eeTransform = endEffectorRepresentation.transform;
-        if ((eeTransform.position - previousPosition).magnitude < movementThreshold)
-        {
-            previousPosition = eeTransform.position;
-            return;
-        }
-        Vector3 ray = eeTransform.TransformDirection(Vector3.down);
-        bool isSurfacePresent = Physics.Raycast(eeTransform.position, ray, out hit, 1f);
-        if (!isSurfacePresent) return;
-        MeshRenderer hitRenderer = hit.transform.gameObject.GetComponent<MeshRenderer>();
-        if (hitRenderer.material.mainTexture is not Texture2D texture) return;
-        Vector2 pixelUV = hit.textureCoord;
-        pixelUV.x *= texture.width;
-        pixelUV.y *= texture.height;
-        for (int i = -1; i <= 1; i++)
-        {
-            for (int j = -1; j <= 1; j++)
-            {
-                Vector2 direction = new Vector2(i, j);
-                direction.Normalize();
-                float mag = texture.GetPixel((int)pixelUV.x + i, (int)pixelUV.y + j).grayscale;
-                forces.x += direction.x * (0.5f - mag);
-                forces.y += direction.y * (0.5f - mag);
-            }
-        }
-        forces *= intensity;
-        previousPosition = eeTransform.position;*/
         forces = Vector2.zero;
         Transform eeTransform = endEffectorRepresentation.transform;
         if ((eeTransform.position - previousPosition).magnitude < movementThreshold)
@@ -117,7 +89,6 @@ public class TextureSampler : MonoBehaviour
             pixelUV.y * swatchscale % prot.normalMap.height
         );
 
-        //print(normalUV);
 
         Color normalPixel = prot.normalMap.GetPixel((int)normalUV.x, (int)normalUV.y);
 

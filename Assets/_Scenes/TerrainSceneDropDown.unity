@@ -766,7 +766,7 @@ MonoBehaviour:
   eeManager: {fileID: 218570639678900991}
   eePositionFactor: 0.00000083
   lowerLimit: 0.25
-  upperLimit: 6
+  upperLimit: 8
   zoomInKey: 273
   zoomOutKey: 274
 --- !u!4 &180237264
@@ -4407,7 +4407,7 @@ TerrainCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 7c07d5e7932b4d942b1692377f153224, type: 2}
-  m_EnableTreeColliders: 0
+  m_EnableTreeColliders: 1
 --- !u!114 &5594588927800862140
 MonoBehaviour:
   m_ObjectHideFlags: 0

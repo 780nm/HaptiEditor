@@ -207,9 +207,8 @@ public class TerrainPainter : MonoBehaviour
         CapsuleCollider capsuleCollider = capsule.AddComponent<CapsuleCollider>();
         capsuleCollider.center = new Vector3(0, 5, 0);
         capsuleCollider.height = 10;
-        capsuleCollider.radius = 0.5f; // Radius of the capsule
-        capsuleCollider.providesContacts = false;
-
+        capsuleCollider.radius = 0.8f; // Radius of the capsule
+        capsuleCollider.isTrigger = true;
 
         DestroyableTree tree = capsule.AddComponent<DestroyableTree>();
         tree.terrainIndex = terrainIndex;
@@ -327,10 +326,9 @@ public class DestroyableTree : MonoBehaviour
 
     public static bool isInDeletingMode = false;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        
-        if (collision.body.tag.Equals("EndEffector") && isInDeletingMode) {
+        if (collider.tag.Equals("EndEffector") && isInDeletingMode) {
             Delete();
             RefreshTerrainCollider();
         }
