@@ -8,7 +8,7 @@ The three fundamental questions we had were as follows:
     \item How would we design the tool itself, with the main mode of interaction being through the Haply?
 \end{enumerate}
 
-\subsection{How would we design a generic virtual coupling between Unity's physics engine and the Haply's force feedback mechanisms?}
+\subsection{How would we design a generic virtual coupling between Unity's physics engine and the Haply's force feedback mechanisms?} \label{subsec:virtual-coupling}
 
 We initially employed the Unity template obtained from the Haply GitLab repository as the foundation for our implementation. However, upon closer examination, it became evident that the forces applied were hardcoded, prompting us to adopt a PD controller model \cite{mathworksPID} facilitated by a virtual proxy (\textit{See \ref*{fig:virtual-coupling}}), as elaborated below.
 
@@ -36,9 +36,9 @@ In our implementation, we utilized Unity game objects, specifically employing on
 
 Notably, while the direction vector was three-dimensional, only the X and Z components of this vector were translated to the Haply to render force feedback. The selected axes were simply an artifact our design decision for editing on a terrain lying in the X-Z plane.
 
-\subsection{How would we detect and render textures in realtime?}
+\subsection{How would we detect and render textures in realtime?} \label{subsec:texture-rendering}
 
-Tangentially influenced by the research conducted by Li et al. (2010) \cite{li2010image}, we opted to leverage the inherent image data embedded within the texture for the application of small directional jitters. The procedural approach to texture rendering works by sampling a three by three pixel window beneath the end effector representation. Subsequently, grayscale conversion is applied to this sampled data, facilitating the extraction of pixel brightness values. The brightest pixels then exert the most pronounced forces in a direction towards the end effector, effectively pushing away from itself. This mechanism imparts the perceptual impression of being coerced towards regions of lower luminosity. Critically, this force modulation exclusively manifests during end effector movement, thereby preempting any undesirable tremors during static user positioning. By recalculating this tug force on a per-frame basis, an appreciable frequency modulation is introduced to the end effector, directly mirroring the texture's visual attributes.
+Tangentially influenced by the research conducted by Li et al. (2010) \cite{li2010image}, we opted to leverage the inherent image data embedded within the texture for the application of small directional jitters. The procedural approach to texture rendering works by sampling a three by three pixel window beneath the end effector representation. Subsequently, grayscale conversion is applied to this sampled data, facilitating the extraction of pixel brightness values. The brightest pixels then exert the most pronounced forces in a direction towards the end effector, effectively pushing away from itself. This mechanism imparts the perceptual impression of being coerced towards regions of lower luminosity. Critically, this force modulation exclusively manifests during end effector movement, thereby avoiding any undesirable tremors during static user positioning. By recalculating this tug force on a per-frame basis, an appreciable frequency modulation is introduced to the end effector, directly mirroring the texture's visual attributes (\textit{See \ref{fig:texture-rendering}}).
 
 \begin{figure}[htbp]
     \centering
@@ -49,6 +49,15 @@ Tangentially influenced by the research conducted by Li et al. (2010) \cite{li20
 
 Although our initial approach involved the utilization of heightmap data instead of the texture's pixel values, we found the latter approach yielded satisfactory outcomes during informal tests, prompting its adoption as the preferred methodology.
 
-\subsection{How would we design the tool itself, with the main mode of interaction being through the Haply?}
+\subsection{How would we design the tool itself, with the main mode of interaction being through the Haply?} \label{subsec:terrain-painting}
 
-Lorem Ipsum set dolor 
+Game engines typically offer a range of tools for terrain editing, which are primarily oriented towards editing within the editor environment rather than functioning during runtime. Consequently, it became necessary for us to reconstruct the fundamental components of a terrain editing tool within Unity, essentially embedding them as "game mechanics". This endeavor chiefly involved leveraging Unity's Terrain game object \cite{unityterrain}. A straightforward user interface facilitates the selection among textures, objects, and an eraser tool, further categorized into sub-menus delineating texture types (e.g., grass, sand) and object variants (e.g., trees, rocks) (refer to Figure \ref{fig:terrain-painting}). The user can then designate their preferred object or texture through mouse interaction. Upon selection, the chosen item acts akin to a virtual paintbrush, effectuating object placement or texture application at the location of the end effector. Activation of the painting action is achieved either through the stylus button integrated with Gen3 DIY devices or, alternatively, by utilizing the spacebar in cases where the stylus button is unavailable.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/approach-terrain-painter.png} 
+    \caption{The final terrain painting interface}
+    \label{fig:terrain-painting}
+\end{figure}
+
+The central utility of this approach lies in its capacity to provide users with tactile feedback commensurate with their interactions with the terrain. Objects impart a palpable resistance as a consequence of virtual coupling (see Subsection \ref{subsec:virtual-coupling}), while textures undergo modulation in their visual characteristics and behavior in accordance with texture rendering principles (see Subsection \ref{subsec:texture-rendering}).
