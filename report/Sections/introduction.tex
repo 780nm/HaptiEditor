@@ -1,5 +1,35 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan arcu bibendum purus laoreet rutrum. Integer aliquam arcu gravida dignissim vestibulum. Aenean ut congue purus. Nullam eleifend, justo non bibendum efficitur, odio felis porta ligula, semper commodo massa erat vel tellus. Nullam non nibh vel eros imperdiet vestibulum sit amet a ex. Proin mattis dui at tortor ultricies, id pulvinar nisi euismod. Duis sed massa in dui aliquet hendrerit. Praesent aliquam luctus nisi non lobortis. Sed bibendum magna orci, vitae pharetra nibh mattis ac. Mauris quis lacus vitae est posuere blandit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed quis augue id lacus egestas tincidunt. Duis et risus vel justo vestibulum feugiat. Donec neque nisl, luctus vitae leo sit amet, vulputate maximus nunc. Cras et velit ut ex ultrices venenatis eget vel odio. Proin fringilla, ante vel fermentum bibendum, ipsum neque dictum dolor, nec semper urna felis sit amet nibh. \cite{klatzky2013haptic}
+%% Describing The problem
+Haptics interfaces are already often used for enhancing the sculpting experience, in multiple fields notably medical braces.
+However, there hasn't been any significant implementation of force-feedback interfaces in the case of terrain editing and terrain painting.
+HaptiEditor is a project intending to explore this application of the haptics, in the hope of seeing wether or not it is promising to invest more effort into this idea.
 
-Fusce eget tristique ante. Proin rutrum est eget semper iaculis. Morbi pulvinar urna non dui dapibus faucibus. Suspendisse tincidunt, sapien non luctus varius, justo ante consectetur erat, quis efficitur ante felis ultricies urna. Sed finibus justo a fringilla finibus. Praesent vitae elit ac nisi maximus tristique. In ac orci volutpat, bibendum quam in, tristique dui. Integer eget nulla id nulla ultricies molestie nec id lacus. Donec eleifend rutrum risus et tempor. Morbi lobortis maximus vestibulum.
+%% Describing our solution
+HaptiEditor is a Unity application which has for objective to edit maps and terrain by painting textures and objects on different scales. 
+By using the Haply 2DIY we hope to create an interesting approach to terrain creation and edition through haptic feedback.
+The goal is to allow real time editing of a virtual space, and simultaneously feel the effect of the changes right away.
 
-Fusce ultrices at sapien tristique semper. Ut congue, ex quis ultrices dictum, nunc ligula ornare sem, in pellentesque felis risus in diam. In hac habitasse platea dictumst. Pellentesque ultricies lectus et congue mattis. Integer a ligula non est dapibus mattis eget ut diam. Sed et ex purus. Aliquam pretium, lacus nec molestie tempus, erat magna mollis tortor, quis pulvinar nulla ipsum eu turpis. Sed nibh erat, posuere in dolor ut, accumsan luctus felis. Nam sit amet elit purus. Nulla rhoncus turpis vitae odio viverra commodo pretium nec libero. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in mi quis odio gravida lacinia. Nam massa mauris, tempor consequat felis id, blandit tincidunt nibh. Integer elementum ex vitae nibh fermentum, ac tincidunt libero semper.
+%% Tell your Story
+The development period span over a period 3 months during the Winter session of 2024, in the course entitled CanHap501.
+CanHap501 is a program which covers multiple Canadian universities in the hope of introducing master students to haptic interfaces. 
+This course teaches us how to conceptualize, prototype, develop and do user evaluation with multimodal human-computer interfaces and haptic exeperiences.
+This project is being developed in a team of three, each of us in different location (i.e. Montreal, Okanagan and Vancouver) with the management issues it entails. 
+For instance, we had to deal with timezone issues as Okanagan and Vancouver are on a different timezone than Montreal. 
+Or that the material given to each student could be different depending on the node they are coming from.
+
+%% Justify the approach
+Since the development timeline of this project is very short we decided to go with a rapid prototyping approach as learned during in parallel during this course.
+Moreover since we didn't really have enough time to create a fully fledged terrain editor software,
+we agreed to use Unity to simplify a lot of the designing and implementation to get to experiment with the haptic side of the project quicker.
+Especially since Unity, as a game engine, already implements some solid systems for collision, forces and texturing.
+
+%% State your contributions
+During the development of HaptiEditor, a system to zooming in and out has been implemented. 
+Using a system of sampling existing textures form the surface's material in order to create haptic feedback and Unity's collision system, HaptiEditor is able to provide different haptic feedback depending on the scale of the end effector scale in the scene.
+This allows a haptic continuum to enable the user to feel the terrain they are editing at any scale they would potentially need.
+
+%% Overview of the paper
+The present report is a statement of the advancements and findings made during the development of HaptiEditor. 
+It will go over the different avenues tried in order to create HaptiEditor, what was prototyped and how it shaped the current software. 
+Then we will examine the results gathered through semi-formal user testing and the overall appreciation the porject received. 
+The results of the user testing and our implementation will thouroughly be discussed in the Discussions section.
+There will be an appendix going over the details of the code judged the most important for our software to work.
