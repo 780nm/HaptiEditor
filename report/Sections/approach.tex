@@ -14,7 +14,6 @@ We initially employed the Unity template obtained from the Haply GitLab reposito
 
 In our implementation, we utilized Unity game objects, specifically employing one designated as the "\textbf{End Effector Actual}" to track the ideal positional data of the Haply, and another marked as the "\textbf{End Effector Representation}" equipped with a built-in sphere collider. This was to allow it to interact with Unity's physics engine. Subsequently, we established a \textit{PD controller} relationship between these two entities. The underlying operational logic mandated the "\textbf{End Effector Representation}" to consistently attempt to minimize the euclidean distance between itself and the "\textbf{End Effector Actual}". This behavior was governed primarily by the proportional component of the \textit{PD controller}, supplemented by the derivative component to offer additional smoothing (\textit{See \ref*{fig:virtual-coupling-a}}). In instances where the "\textbf{Representation}" detected any physical collisions, it directed the Haply to exert a force in the direction of the "\textbf{Representation}" from the "\textbf{Actual}" (\textit{See \ref*{fig:virtual-coupling-b}}). This would happen in parallel to the distance minimization attempts of the "\textbf{Representation}". Consequently, this establishment facilitated an adaptable virtual coupling mechanism, subject to the influence of Unity's physics engine via the intermediary proxy.
 
-
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
@@ -35,6 +34,7 @@ In our implementation, we utilized Unity game objects, specifically employing on
     \label{fig:virtual-coupling}
 \end{figure}
 
+Notably, while the direction vector was three-dimensional, only the X and Z components of this vector were translated to the Haply to render force feedback. The selected axes were simply an artifact our design decision for editing on a terrain lying in the X-Z plane.
 
 \subsection{How would we detect and render textures in realtime?}
 
