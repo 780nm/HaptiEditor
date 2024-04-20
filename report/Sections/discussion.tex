@@ -1,5 +1,23 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan arcu bibendum purus laoreet rutrum. Integer aliquam arcu gravida dignissim vestibulum. Aenean ut congue purus. Nullam eleifend, justo non bibendum efficitur, odio felis porta ligula, semper commodo massa erat vel tellus. Nullam non nibh vel eros imperdiet vestibulum sit amet a ex. Proin mattis dui at tortor ultricies, id pulvinar nisi euismod. Duis sed massa in dui aliquet hendrerit. Praesent aliquam luctus nisi non lobortis. Sed bibendum magna orci, vitae pharetra nibh mattis ac. Mauris quis lacus vitae est posuere blandit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed quis augue id lacus egestas tincidunt. Duis et risus vel justo vestibulum feugiat. Donec neque nisl, luctus vitae leo sit amet, vulputate maximus nunc. Cras et velit ut ex ultrices venenatis eget vel odio. Proin fringilla, ante vel fermentum bibendum, ipsum neque dictum dolor, nec semper urna felis sit amet nibh. \cite{klatzky2013haptic}
+\subsection{Discussions}
 
-Fusce eget tristique ante. Proin rutrum est eget semper iaculis. Morbi pulvinar urna non dui dapibus faucibus. Suspendisse tincidunt, sapien non luctus varius, justo ante consectetur erat, quis efficitur ante felis ultricies urna. Sed finibus justo a fringilla finibus. Praesent vitae elit ac nisi maximus tristique. In ac orci volutpat, bibendum quam in, tristique dui. Integer eget nulla id nulla ultricies molestie nec id lacus. Donec eleifend rutrum risus et tempor. Morbi lobortis maximus vestibulum.
+There are 2 major points of discussion to be had with regards to this project:
+\subsubsection{The Haptic-Editing process:}
 
-Fusce ultrices at sapien tristique semper. Ut congue, ex quis ultrices dictum, nunc ligula ornare sem, in pellentesque felis risus in diam. In hac habitasse platea dictumst. Pellentesque ultricies lectus et congue mattis. Integer a ligula non est dapibus mattis eget ut diam. Sed et ex purus. Aliquam pretium, lacus nec molestie tempus, erat magna mollis tortor, quis pulvinar nulla ipsum eu turpis. Sed nibh erat, posuere in dolor ut, accumsan luctus felis. Nam sit amet elit purus. Nulla rhoncus turpis vitae odio viverra commodo pretium nec libero. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in mi quis odio gravida lacinia. Nam massa mauris, tempor consequat felis id, blandit tincidunt nibh. Integer elementum ex vitae nibh fermentum, ac tincidunt libero semper.
+(TODO: Put information here about the feedback we have recieved and how that improves the experience of editing virtual spaces)
+
+\subsubsection{Unity as a tool for haptics design:}
+
+Throughout history, various art forms, such as music, drawing, photography, film, video editing, game development, and XR development, have experienced significant advancements whenever developers have embraced user-friendly tools. These advancements have been facilitated by the availability of accessible cameras, freely available software for music composition and video editing, as well as widely supported game engines like Unity and Unreal. However, when the primary means of entry into these fields is limited to Java and Processing code, the potential for designing experiences becomes constrained by the technical skills of developers, creating a bottleneck effect. It is imperative to encourage the haptics community to explore beyond mere code frameworks and instead adopt a singular, user-friendly engine (such as Unity) that can empower designers to focus on the user experience aspect of haptics, rather than being bogged down by technical jargon. Such an approach would enable individuals to specialize in various aspects of haptics, be it hardware, software, or design, akin to the specialization seen in the game development industry, thereby enhancing the overall quality of output.
+
+\subsection{Limitations}
+
+There are quite a few limitations with our final project, given how many unique concepts and implementations we tried to explore. Some of the primary ones are discussed below:
+
+\subsubsection{Movement in an infinite space:}
+
+With our current implementation, the end effector can only move in the virtual space a proportional amount to the haply device's arm length. While we can change the movement scale in the engine, the end effector will eventually get stuck due to the haply's arm pantograph constraint. The primary difficulty lies in changing the relative positioning of the proxy with respect to the world, and what the underlying user experience design philosophy should be for the same without disorienting the user. 
+
+\subsubsection{Fine grain control of placed objects:}
+While we have the ability to place objects around a specific space, we do not have the ability to move or rotate a placed object in any degree of freedom, or scale the object up and down. This was an initial consideration our project had but had to be discarded in the interest of time and producing a working prototype. The main issue with this comes in tackling the user interaction model to edit the transform data of an object. Since the haply is the main mode of interaction, we could consider using it similar to a mouse, and designing movement, rotation and scale gizmos that can subsequently be used for the editing process. 
+
+
