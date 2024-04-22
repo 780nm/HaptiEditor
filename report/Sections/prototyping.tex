@@ -1,5 +1,53 @@
 \subsection{Zooming}
 
 \subsection{Painting}
+The incorporation of painting capabilities for objects and textures within a terrain editor is imperative for a multitude of reasons. 
+Firstly, such functionality facilitates the creation of intricate and visually captivating landscapes by allowing users to precisely apply diverse textures and objects onto terrain surfaces, thereby enhancing realism and aesthetic appeal. 
+More specifically, with the ability to add their own textures and objects, this feature enables users to customize their environments with precision, enabling the realization their artistic visions. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/timeline.png} 
+    \caption{Representation of the evolution of the prototypes throughout the development of the project
+    (1) shows screenshot of the first prototype made to validate our first iteration
+    (2) reprensents a screenshot of the first prototype after some code clean up and transfered to 3D space
+    (3) displays a screenshot of the texture painting working on Unity's terrain game object
+    (4) illustrates painting objects on the the terrain previously textured
+    (5) is a capture of the final version which can be seen in Fig. \ref{fig:terrain-painting}}
+    \label{fig:texture-rendering}
+\end{figure}
+
+In line with the comprehensive nature of this project, the process of painting underwent multiple iterations of prototypes throughout the development phase. 
+In the forthcoming discussion, we shall examine each prototype and elucidate the insights gleaned from them. 
+The creation of our initial prototype, referred to as "the sprinkler," transpired towards the end of the first iteration. 
+Its primary objective is to validate the efficacy of the PD controller implementation and the integration of Haply's API for the third iteration of Haply's 2DIY. 
+This prototype functioned as a testament to the feasibility of dynamically generating objects during runtime and eliciting force-feedback from interactions between the end-effector and these aforementioned objects.
+As illustrated in Figure \ref{fig:texture-rendering}. (1), the sprinkler is placing gray circles as long as we were pressing the stylus button or the spacebar\footnote{the spacebar is used as backup throughout the project if the stylus button doesn't work for diverse reasons}.
+These gray circles serve as visual indicators devoid of collision detection, providing a prelude to the subsequent placement of black circles, complete with colliders, upon the eventual release of the stylus button or the spacebar key.
+
+
+Just after finishing the transition from 2D to 3D, we repurposed the code of "the sprinkler" to be usable in 3D space since it is a quick way to, once again, determine wether or not everything is working as intended.
+We are reusing the same logic behind the placement of object as it has proven effective for the first prototype.
+In the second image of Figure \ref{fig:texture-rendering}., we can see that the scene is now in 3D and what was previously circles are now cylinders with random colors.
+The force-feedback is kept the same, if we move the End-Effector into a cylinder, we will be pushed out as if it is a wall.
+We concluded from this prototype that handling the object placement using a similar script is aligned with our goals for object placement, especially since it is easy to use and learn how to use it, thanks to the stylus affordance. 
+
+The subsequent prototype aims to enhance information retention across multiple executions. 
+Our approach pivots towards leveraging Unity's terrain game object, which inherently retains terrain deformation, applied textures, and placed objects. 
+This strategic alignment enables seamless integration with Unity's terrain editing system, obviating the need for extensive bespoke implementation. 
+This not only yields temporal efficiencies but also enhances usability, capitalizing on user familiarity with the platform. 
+Our primary focus lies on object and texture painting, thereby excluding terrain elevation adjustments. 
+
+In the prototype corresponding to Figure \ref{fig:texture-rendering}. (3), we introduced the capability to paint textures via mouse input. 
+Employing mouse-based prototyping expedites debugging processes, preempting potential issues arising from haptic interfaces. 
+This prototype proved its importance in facilitating rapid parameter experimentation, refining aspects such as brush radius, fall-off characteristics, and curve adjustments to ensure smoother edge rendering during texture painting.
+From this prototype as a base, we implemented object creation for terrain and object deletion, still utilizing the mouse as an input.
+Similarly, it permitted us experiment with different parameters to find what feels best, user experience-wise. 
+The results are displayed in Figure \ref{fig:texture-rendering}. (4).
+
+Subsequently, the amalgamation of prototypes culminated in a singular definitive outcome, as depicted in Figure \ref{fig:texture-rendering}. (5).
+Firstly, we transitioned the painting process to be contingent upon the positional data of the end-effector representation. 
+Secondly, we repurposed the coroutine mechanism utilized for object painting from the second prototype, integrating it seamlessly with newly devised functionalities for object and texture painting, as well as object erasure. 
+Lastly, we devised a concise user interface, affording runtime modifications of tools and their respective painting attributes.
 
 \subsection{Texture}
