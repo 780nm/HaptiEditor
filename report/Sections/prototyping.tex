@@ -7,7 +7,7 @@ To facilitate this, we change the flow of logic for initialising the board to us
 
 \begin{figure}
     \centering
-    \includegraphics[width = 1.0\textwidth]{images/board-config.png}
+    \includegraphics[width = 0.8\textwidth]{images/board-config.png}
     \caption{Different board configurations for the Haply}
     \label{fig:board-config}
 \end{figure}
@@ -69,3 +69,4 @@ Secondly, we repurposed the coroutine mechanism utilized for object painting fro
 Lastly, we devised a concise user interface, affording runtime modifications of tools and their respective painting attributes.
 
 \subsection{Texture}
+Our initial approach to texture rendering involved firing a raycast to detect the material underneath the end effector. This would then return the corresponding texture information, and the 3x3 window of pixels specifically underneath the end effector representation. Using this we could extrapolate the ideal direction the end effector should be moving. However using raycasts were computationally expensive, and required us to rethink our approach. The texture rendering process in it's current state has been described in detail in \ref{subsec:texture-rendering}, and overall performs better while retaining accuracy in its representation.
