@@ -3,7 +3,6 @@ Haptics interfaces are often used for enhancing sculpting experiences.
 However, no significant implementation of force-feedback interfaces in the case of terrain editing and terrain painting has been created.
 Many existing haptic-augmented sculpting applications might be applicable to this task, but use haptic devices with three, or even six degrees of freedom, which are often both large and expensive.
 With HaptiEditor, we intend to use the target domain of terrain editing to our advantage, developing a compelling user interface with a relatively inexpensive two degree of freedom device.
-HaptiEditor is a project intending to explore this application of haptics, in the hope of evaluating the promise of our approach.
 
 %% Describing our solution
 HaptiEditor is a Unity application which has for objective to edit maps and terrain by painting textures and objects on different scales. 
@@ -11,18 +10,16 @@ By using the Haply 2DIY we hope to create an interesting approach to terrain cre
 The goal is to allow real time editing of a virtual space, and simultaneously feel the effect of the changes right away.
 
 %% Tell your Story
-The development period span over a period 3 months during the Winter session of 2024, in the course entitled CanHap501.
-CanHap501 is a program which covers multiple Canadian universities in the hope of introducing graduate MSc students to haptic interfaces. 
-This course teaches us how to conceptualize, prototype, develop and do user evaluation with multimodal human-computer interfaces and haptic experiences.
-This project is being developed in a team of three, each of us in different location (i.e. Montreal, Okanagan and Vancouver) with the management issues it entails. 
-For instance, timezone issues as Okanagan and Vancouver are on a different timezone than Montreal,
-or versions of hardware given to each student were different depending on location.
+The development period spaned 3 months during the Winter session of 2024, as part of the cross-institutional CanHap501 course.
+CanHap501 is a program which covers multiple Canadian universities, introducing graduate MSc students to haptic interfaces. 
+The course teaches students how to conceptualize, prototype, develop and do user evaluation with multimodal human-computer interfaces and haptic experiences.
+This project is being developed in a team of three, with each member in different location (Montreal, Okanagan and Vancouver).
 
 %% Justify the approach
-Since the development timeline of this project is very short we decided to go with a rapid prototyping approach as learned in parallel during this course.
+Since the development timeline of this project is very short, we decided to go with a rapid prototyping approach; developing features in parallel during the course.
 Moreover, since we didn't have enough time to create a fully fledged terrain editor software,
-we agreed to use Unity to simplify a lot of the designing and implementation to get to experiment with the haptic side of the project quicker.
-Especially since Unity, as a game engine, already implements some solid systems for collision, forces and texturing.
+we use Unity to simplify a lot of the designing and implementation to get to experiment with the haptic side of the project quicker.
+This choice proved advantageous, as Unity, a game engine, already implements some solid systems for collision, forces and texturing.
 
 %% State your contributions
 HaptiEditor allows exploration of terrain at different scales via a novel zooming system.
@@ -30,7 +27,7 @@ Using a system of sampling existing textures form the surface's material in orde
 This allows a haptic continuum to enable the user to feel the terrain they are editing at any scale they would potentially need.
 
 %% Overview of the paper
-The present report is a statement of the advancements and findings made during the development of HaptiEditor. 
+This report is a statement of the advancements and findings made during the development of HaptiEditor. 
 We will go over the different avenues tried in order to create HaptiEditor, what was prototyped and how it shaped the current software. 
-We will then examine the results gathered through semi-formal user testing and the overall appreciation the project received. 
+We will then examine the results gathered through semiformal user testing and the overall appreciation the project received. 
 The results of the user testing and our implementation will thoroughly be discussed in the Discussions section.

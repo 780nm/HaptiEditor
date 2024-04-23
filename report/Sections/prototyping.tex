@@ -1,7 +1,7 @@
 \subsection{Developing for Unity}
-There were two main aspects to developing for Unity which we rehaul from the sample Unity Haply Gitlab repository:
-\subsubsection{Board Configurations}
-Since we have differently configured 2DIY Gen 3 Haply boards (and in some cases, Gen 2 boards), we need a way to switch easily between these configurations without spending time changing code whenever we push code to each other. Given that all the team members in this project worked remotely and in different time zones, this was imperative to a smoother development experience. 
+We re-haul two key pieces of functionality from the sample Unity Haply Gitlab repository:
+\paragraph{Board Configurations}
+Since 2DIY Gen 3 Haply boards (and in some cases, Gen 2 boards) may be assembled in different ways, we need a way to switch easily between board configurations without spending time changing code whenever we push code to each other. Given that all the team members in this project worked remotely and in different time zones, this was imperative to a smoother development experience. 
 
 To facilitate this, we change the flow of logic for initialising the board to use configuration files, refered to as scriptable objects in Unity. By storing our different configurations in these files, we can easily swap in the appropriate configuration during development time without affecting any of the actual code.
 
@@ -14,7 +14,7 @@ To facilitate this, we change the flow of logic for initialising the board to us
 \end{figure}
 
 \subsubsection{Utilising Unity's Physics}
-The main benefit to utilisng Unity was to leverage it's physics engine for automated haptic experiences. The process of connecting the Haply to Unity physics has been described in detail in \ref{subsec:virtual-coupling}. There are minor nuances in  the implementation itself, specific to Unity. These include making sure the physics engine is running at a higher framerate than normal since the physics is separated from the graphics, enabling continuous collisions for a smoother experience, and interpolating all collisions. While these changes require higher compute, our current application runs at 500+ frames per second, and generally improve the experience without any significant detrmiment to the performanc of the program.
+The main benefit to utilizing Unity was to leverage it's physics engine for automated haptic experiences. The process of connecting the Haply to Unity physics has been described in detail in \ref{subsec:virtual-coupling}. There are minor nuances in  the implementation itself, specific to Unity. These include making sure the physics engine is running at a higher framerate than normal since the physics is separated from the graphics, enabling continuous collisions for a smoother experience, and interpolating all collisions. While these changes require higher compute, our current application runs at 500+ frames per second, and generally improve the experience without any significant detrmiment to the performanc of the program.
 
 \subsection{Zooming}
 In order to allow the designer and user to explore the world at different scales, we incorporate the ability to zoom in and out of the world. From a design perspective, we wished to convey the sense of scale of the world. This was achieved by letting the user explore the ground and the side surfaces of objects in the world when small, and allowing the end effector to "climb" on top of clumps of objects when large, thereby providing force feedback on the basis of the top surface geometry of the objects. 
