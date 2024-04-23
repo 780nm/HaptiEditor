@@ -13,6 +13,7 @@ Please find a 2-minute overview of the functionality of our project here:\\
     \centering
     \includegraphics[width=14cm]{images/appendix-menu.png}
     \caption{HaptiEditor configuration menu}
+    \Description{HaptiEditor configuration menu}
     \label{fig:menu}
 \end{figure}
 
@@ -79,7 +80,7 @@ I fished out a basic scene manager and transition handler from an older project,
 
 \subsection{Sean's Contributions}
 
-This iteration, I finalized work on the texture pipeline and integrated it with Pierre’s work from iteration 2 on texture and object painting on the terrain object. Pierre wrote some logic to get world position into a corresponding position on the surface of the terrain object, removing the need for our expensive physics ray-cast. The rest of the process involved the following changes:
+This iteration, I finalized work on the texture pipeline and integrated it with Celeste's work from iteration 2 on texture and object painting on the terrain object. Celeste wrote some logic to get world position into a corresponding position on the surface of the terrain object, removing the need for our expensive physics ray-cast. The rest of the process involved the following changes:
 
 \begin{itemize}
     \item Detecting which terrain texture was currently painted onto the surface of the terrain underneath the end effector. This required fetching the blend ratios of each material at the EE location and determining which was present:
@@ -117,7 +118,7 @@ Lastly, I tuned the texture sampling code again so that it would play nice with 
 
 Post iteration 3, I fixed some outstanding bugs, worked on my section of the report, and prepared the video figure.
 
-\subsection{Pierre's Contributions}
+\subsection{Celeste's Contributions}
 As stated in our blog posts for iteration 2, the goal for the third was to merge every concepts and prototypes into one single, preferably enjoyable, experience. In this iteration we ended up working together way more and in closer collaboration by helping each others a lot more. This can be easily explained because we didn’t prototype on a different aspect of the experience and were actually making something unique together. This is why sometimes the lines of contributions of what I did and what a team member did will blur into what we did this feature together.
 
 While we knew that we would merge all of our progress into the Terrain scene because the end goal is to use Unity’s Terrain game object has our editor, the \texttt{TerrainScript.cs} from iteration 2 wasn’t usable as is. Firstly, we need to fix the lack optimizations. Secondly, the user should have a way to change the brush type and their specifics without using Unity editor menus (it is necessary if the user interacts with our software through an executable instead of the Unity Project). Thirdly, Lastly, it is unlikely the code we used for texture sampling for haptic feedback would work on the Terrain game object, because it has the particularity to not have a \texttt{MeshRenderer} (a component that allows a game object to render a mesh). Finally, there needs to be a way paint using the stylus button instead of the mouse.
@@ -148,4 +149,21 @@ Then using the \texttt{ObjectPlacer.cs} as a reference I created two co-routines
 
 From then on Rishav worked with me on a basic UI so we can change the brush types and which texture/object is being painted.
 
-\section{Code} \label{sec:appendix-b}
+\section{Previous Iterations}
+
+For further reading into the development of this project, links to the previous iterations can be found on the Project Winnipeg website.
+
+\begin{enumerate}
+    \item Iteration 1:
+    \begin{itemize}
+        \item \href{https://projwinnipeg.notion.site/HaptiEditor-Iteration-1-0ad2556b697148aca8084f8d938be19f}{Celeste's Blog: Iteration 1}
+        \item \href{https://projwinnipeg.notion.site/HaptiEditor-Iteration-1-d5998c2d099d43a28bf3c668a417c748}{Sean's Blog: Iteration 1}
+        \item \href{https://projwinnipeg.notion.site/HaptiEditor-Project-Iteration-1-c22fc284e17148cbbcff2984f96eeba0}{Rishav's Blog: Iteration 1}
+    \end{itemize}
+    \item Iteration 2:
+    \begin{itemize}
+        \item \href{https://projwinnipeg.notion.site/HaptiEditor-Iteration-2-09a476238c0443bab630b1c2f9047f92}{Celeste's Blog: Iteration 2}
+        \item \href{https://projwinnipeg.notion.site/HaptiEditor-Iteration-2-8fe3d27875774aa6b2440d1337fe5695}{Sean's Blog: Iteration 2}
+        \item \href{https://projwinnipeg.notion.site/Project-Iteration-2-HaptiEditor-1cb6002597714459a75a5effb3dda0b2}{Rishav's Blog: Iteration 2}
+    \end{itemize}
+\end{enumerate}
