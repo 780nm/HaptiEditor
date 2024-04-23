@@ -9,6 +9,7 @@ To facilitate this, we change the flow of logic for initialising the board to us
     \centering
     \includegraphics[width = 0.8\textwidth]{images/board-config.png}
     \caption{Different board configurations for the Haply}
+    \Description{Different board configurations for the Haply}
     \label{fig:board-config}
 \end{figure}
 
@@ -16,7 +17,9 @@ To facilitate this, we change the flow of logic for initialising the board to us
 The main benefit to utilisng Unity was to leverage it's physics engine for automated haptic experiences. The process of connecting the Haply to Unity physics has been described in detail in \ref{subsec:virtual-coupling}. There are minor nuances in  the implementation itself, specific to Unity. These include making sure the physics engine is running at a higher framerate than normal since the physics is separated from the graphics, enabling continuous collisions for a smoother experience, and interpolating all collisions. While these changes require higher compute, our current application runs at 500+ frames per second, and generally improve the experience without any significant detrmiment to the performanc of the program.
 
 \subsection{Zooming}
+In order to allow the designer and user to explore the world at different scales, we incorporate the ability to zoom in and out of the world. From a design perspective, we wished to convey the sense of scale of the world. This was achieved by letting the user explore the ground and the side surfaces of objects in the world when small, and allowing the end effector to "climb" on top of clumps of objects when large, thereby providing force feedback on the basis of the top surface geometry of the objects. 
 
+Implementing this practically was rather trivial, since we had worked extensively on abstracting the texture and object force feedback information. By changing the scale of the representation and moving the camera a proportional amount to said scale, the correct forces and texture data was automatically conveyed. Note that the relationship between the camera's movement and the scaling of the end effector is a cubic one. This is in order to maintain an approximte size of the end effector on screen, such that it gives the appearance of the world growing and shrinking around the designer or the user.
 
 \subsection{Painting}
 The incorporation of painting capabilities for objects and textures within a terrain editor is imperative for a multitude of reasons. 
@@ -25,13 +28,14 @@ More specifically, with the ability to add their own textures and objects, this 
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1.0\textwidth]{images/timeline.png} 
+    \includegraphics[width=0.8\textwidth]{images/timeline.png} 
     \caption{Representation of the evolution of the prototypes throughout the development of the project
     (1) shows screenshot of the first prototype made to validate our first iteration
     (2) reprensents a screenshot of the first prototype after some code clean up and transfered to 3D space
     (3) displays a screenshot of the texture painting working on Unity's terrain game object
     (4) illustrates painting objects on the the terrain previously textured
     (5) is a capture of the final version which can be seen in Fig. \ref{fig:terrain-painting}}
+    \Description{Representation of the evolution of the prototypes throughout the development of the project}
     \label{fig:evolution-painting}
 \end{figure}
 
